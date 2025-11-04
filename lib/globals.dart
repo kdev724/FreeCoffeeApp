@@ -23,6 +23,14 @@ class GlobalUser {
   // Get current user
   static User? get currentUser => _currentUser;
 
+  // Get user role
+  static String getUserRole() {
+    if (_userProfile != null && _userProfile!['role'] != null) {
+      return _userProfile!['role'];
+    }
+    return 'user';
+  }
+
   // Get user profile
   static Map<String, dynamic>? get userProfile => _userProfile;
 

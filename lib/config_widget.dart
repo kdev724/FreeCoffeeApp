@@ -112,7 +112,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('App Settings'),
-        backgroundColor: Color(0xFFC69C6D),
+        backgroundColor: Color(0xFFFF5516),
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
@@ -147,7 +147,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                                       ResponsiveHelper.getResponsiveFontSize(
                                           context, 18),
                                   fontWeight: FontWeight.bold,
-                                  color: Color(0xFFC69C6D),
+                                  color: Color(0xFFFF5516),
                                 ),
                               ),
                               Text(
@@ -222,7 +222,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 18),
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -233,7 +233,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                           onChanged: (bool? value) {
                             setAutoConnect(value ?? true);
                           },
-                          activeColor: Color(0xFFC69C6D),
+                          activeColor: Color(0xFFFF5516),
                         ),
                         Expanded(
                           child: Column(
@@ -282,7 +282,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 18),
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -311,13 +311,13 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 18),
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                       ),
                     ),
                     const SizedBox(height: 16),
                     ListTile(
                       leading:
-                          Icon(Icons.help_outline, color: Color(0xFFC69C6D)),
+                          Icon(Icons.help_outline, color: Color(0xFFFF5516)),
                       title: const Text('How to Use'),
                       subtitle: const Text('Learn how to earn coffee rewards'),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -327,7 +327,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                     ),
                     ListTile(
                       leading:
-                          Icon(Icons.email_outlined, color: Color(0xFFC69C6D)),
+                          Icon(Icons.email_outlined, color: Color(0xFFFF5516)),
                       title: const Text('Contact Support'),
                       subtitle: const Text('Get help with your account'),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -337,7 +337,7 @@ class _ConfigWidgetState extends State<ConfigWidget> {
                     ),
                     ListTile(
                       leading: Icon(Icons.privacy_tip_outlined,
-                          color: Color(0xFFC69C6D)),
+                          color: Color(0xFFFF5516)),
                       title: const Text('Privacy Policy'),
                       subtitle: const Text('Read our privacy policy'),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),

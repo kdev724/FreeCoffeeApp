@@ -12,13 +12,13 @@ class PrivacyPolicyPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           'Privacy Policy & Terms',
-          style: GoogleFonts.inter(
+          style: GoogleFonts.poppins(
             color: Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: ResponsiveHelper.getResponsiveFontSize(context, 20),
           ),
         ),
-        backgroundColor: Color(0xFFC69C6D),
+        backgroundColor: Color(0xFFFF5516),
         foregroundColor: Colors.white,
         elevation: 0,
       ),
@@ -42,7 +42,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                       ResponsiveHelper.getResponsiveRadius(context, 16)),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xFFC69C6D).withOpacity(0.2),
+                      color: Color(0xFFFF5516).withOpacity(0.2),
                       blurRadius: 20,
                       spreadRadius: 0,
                       offset: Offset(
@@ -62,14 +62,14 @@ class PrivacyPolicyPage extends StatelessWidget {
                     Icon(
                       Icons.privacy_tip_outlined,
                       size: ResponsiveHelper.getResponsiveFontSize(context, 48),
-                      color: Color(0xFFC69C6D),
+                      color: Color(0xFFFF5516),
                     ),
                     SizedBox(
                         height:
                             ResponsiveHelper.getResponsivePadding(context, 16)),
                     Text(
                       'Privacy Policy & Terms of Service',
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.poppins(
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 24),
                         fontWeight: FontWeight.bold,
@@ -82,7 +82,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                             ResponsiveHelper.getResponsivePadding(context, 8)),
                     Text(
                       'Last updated: ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.poppins(
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 14),
                         color: Colors.grey[600],
@@ -241,10 +241,10 @@ class PrivacyPolicyPage extends StatelessWidget {
                     padding: EdgeInsets.all(
                         ResponsiveHelper.getResponsivePadding(context, 16)),
                     decoration: BoxDecoration(
-                      color: Color(0xFFC69C6D).withOpacity(0.1),
+                      color: Color(0xFFFF5516).withOpacity(0.1),
                       borderRadius: BorderRadius.circular(
                           ResponsiveHelper.getResponsiveRadius(context, 12)),
-                      border: Border.all(color: Color(0xFFC69C6D)),
+                      border: Border.all(color: Color(0xFFFF5516)),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +254,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                           style: GoogleFonts.inter(
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
                                 context, 14),
-                            color: Color(0xFFC69C6D),
+                            color: Color(0xFFFF5516),
                           ),
                         ),
                         SizedBox(
@@ -328,12 +328,12 @@ class PrivacyPolicyPage extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(icon, color: Color(0xFFC69C6D), size: 24),
+              Icon(icon, color: Color(0xFFFF5516), size: 24),
               SizedBox(
                   width: ResponsiveHelper.getResponsivePadding(context, 12)),
               Text(
                 title,
-                style: GoogleFonts.inter(
+                style: GoogleFonts.poppins(
                   fontSize: ResponsiveHelper.getResponsiveFontSize(context, 20),
                   fontWeight: FontWeight.bold,
                   color: Colors.grey[800],
@@ -358,7 +358,7 @@ class PrivacyPolicyPage extends StatelessWidget {
         children: [
           Text(
             title,
-            style: GoogleFonts.inter(
+            style: GoogleFonts.poppins(
               fontSize: ResponsiveHelper.getResponsiveFontSize(context, 16),
               fontWeight: FontWeight.w600,
               color: Colors.grey[800],
@@ -370,7 +370,7 @@ class PrivacyPolicyPage extends StatelessWidget {
                     bottom: ResponsiveHelper.getResponsivePadding(context, 4)),
                 child: Text(
                   item,
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.poppins(
                     fontSize:
                         ResponsiveHelper.getResponsiveFontSize(context, 14),
                     color: Colors.grey[700],
@@ -392,19 +392,19 @@ class PrivacyPolicyPage extends StatelessWidget {
         children: [
           Text(
             label,
-            style: GoogleFonts.inter(
+            style: GoogleFonts.poppins(
               fontSize: ResponsiveHelper.getResponsiveFontSize(context, 14),
               fontWeight: FontWeight.w600,
-              color: Color(0xFFC69C6D),
+              color: Color(0xFFFF5516),
             ),
           ),
           SizedBox(width: ResponsiveHelper.getResponsivePadding(context, 8)),
           Expanded(
             child: Text(
               value,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                 fontSize: ResponsiveHelper.getResponsiveFontSize(context, 14),
-                color: Color(0xFFC69C6D),
+                color: Color(0xFFFF5516),
               ),
             ),
           ),

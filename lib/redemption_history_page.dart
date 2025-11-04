@@ -188,7 +188,7 @@ class _RedemptionHistoryPageState extends State<RedemptionHistoryPage> {
                             ElevatedButton(
                               onPressed: _loadRedemptions,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFC69C6D),
+                                backgroundColor: Color(0xFFFF5516),
                                 foregroundColor: Colors.white,
                               ),
                               child: Text('Try Again'),
@@ -252,7 +252,7 @@ class _RedemptionHistoryPageState extends State<RedemptionHistoryPage> {
                               icon: Icon(Icons.coffee),
                               label: Text('Redeem Coffee'),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFC69C6D),
+                                backgroundColor: Color(0xFFFF5516),
                                 foregroundColor: Colors.white,
                               ),
                             ),
@@ -261,7 +261,7 @@ class _RedemptionHistoryPageState extends State<RedemptionHistoryPage> {
                       )
                     : RefreshIndicator(
                         onRefresh: _loadRedemptions,
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                         child: ListView.builder(
                           padding: EdgeInsets.all(16),
                           itemCount: _redemptions.length,
@@ -326,7 +326,7 @@ class _RedemptionHistoryPageState extends State<RedemptionHistoryPage> {
                                         Text(
                                           '${redemption['credits_spent']} credits',
                                           style: TextStyle(
-                                            color: Color(0xFFC69C6D),
+                                            color: Color(0xFFFF5516),
                                             fontWeight: FontWeight.bold,
                                             fontSize: ResponsiveHelper
                                                 .getResponsiveFontSize(

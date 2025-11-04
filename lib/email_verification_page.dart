@@ -114,14 +114,14 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                               ResponsiveHelper.getResponsivePadding(
                                   context, 20)),
                           decoration: BoxDecoration(
-                            color: Color(0xFFC69C6D).withOpacity(0.1),
+                            color: Color(0xFFFF5516).withOpacity(0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.email_outlined,
                             size: ResponsiveHelper.getResponsiveFontSize(
                                 context, 48),
-                            color: Color(0xFFC69C6D),
+                            color: Color(0xFFFF5516),
                           ),
                         ),
                         SizedBox(
@@ -131,7 +131,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                         // Title
                         Text(
                           'Check Your Email',
-                          style: GoogleFonts.inter(
+                          style: GoogleFonts.poppins(
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
                                 context, 28),
                             fontWeight: FontWeight.bold,
@@ -177,7 +177,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                       context, 8)),
                               Text(
                                 'Waiting for verification...',
-                                style: GoogleFonts.inter(
+                                style: GoogleFonts.poppins(
                                   fontSize:
                                       ResponsiveHelper.getResponsiveFontSize(
                                           context, 14),
@@ -195,7 +195,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                         // Subtitle
                         Text(
                           'We\'ve sent a verification link to',
-                          style: GoogleFonts.inter(
+                          style: GoogleFonts.poppins(
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
                                 context, 16),
                             color: Colors.grey[600],
@@ -222,7 +222,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                           ),
                           child: Text(
                             widget.email,
-                            style: GoogleFonts.inter(
+                            style: GoogleFonts.poppins(
                               fontSize: ResponsiveHelper.getResponsiveFontSize(
                                   context, 16),
                               fontWeight: FontWeight.w600,
@@ -241,19 +241,19 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                               ResponsiveHelper.getResponsivePadding(
                                   context, 16)),
                           decoration: BoxDecoration(
-                            color: Color(0xFFC69C6D).withOpacity(0.1),
+                            color: Color(0xFFFF5516).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(
                                 ResponsiveHelper.getResponsiveRadius(
                                     context, 12)),
                             border: Border.all(
-                                color: Color(0xFFC69C6D).withOpacity(0.2)),
+                                color: Color(0xFFFF5516).withOpacity(0.2)),
                           ),
                           child: Column(
                             children: [
                               Row(
                                 children: [
                                   Icon(Icons.info_outline,
-                                      color: Color(0xFFC69C6D),
+                                      color: Color(0xFFFF5516),
                                       size: ResponsiveHelper
                                           .getResponsiveFontSize(context, 20)),
                                   SizedBox(
@@ -262,11 +262,11 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                               context, 8)),
                                   Text(
                                     'What to do next:',
-                                    style: GoogleFonts.inter(
+                                    style: GoogleFonts.poppins(
                                       fontSize: ResponsiveHelper
                                           .getResponsiveFontSize(context, 14),
                                       fontWeight: FontWeight.w600,
-                                      color: Color(0xFFC69C6D),
+                                      color: Color(0xFFFF5516),
                                     ),
                                   ),
                                 ],
@@ -313,7 +313,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                     : _hasResent
                                         ? 'Resend Email Again'
                                         : 'Resend Verification Email',
-                                style: GoogleFonts.inter(
+                                style: GoogleFonts.poppins(
                                   fontSize:
                                       ResponsiveHelper.getResponsiveFontSize(
                                           context, 16),
@@ -321,7 +321,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color(0xFFC69C6D),
+                                backgroundColor: Color(0xFFFF5516),
                                 foregroundColor: Colors.white,
                                 padding: EdgeInsets.symmetric(
                                     vertical:
@@ -399,7 +399,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                                 Icon(Icons.arrow_back, color: Colors.grey[600]),
                             label: Text(
                               'Back to Login',
-                              style: GoogleFonts.inter(
+                              style: GoogleFonts.poppins(
                                 fontSize:
                                     ResponsiveHelper.getResponsiveFontSize(
                                         context, 16),
@@ -429,7 +429,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
                         // Help Text
                         Text(
                           'Didn\'t receive the email? Check your spam folder or try resending.',
-                          style: GoogleFonts.inter(
+                          style: GoogleFonts.poppins(
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
                                 context, 12),
                             color: Colors.grey[500],
@@ -458,13 +458,13 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
             width: ResponsiveHelper.getResponsiveFontSize(context, 24),
             height: ResponsiveHelper.getResponsiveFontSize(context, 24),
             decoration: BoxDecoration(
-              color: Color(0xFFC69C6D),
+              color: Color(0xFFFF5516),
               shape: BoxShape.circle,
             ),
             child: Center(
               child: Text(
                 number,
-                style: GoogleFonts.inter(
+                style: GoogleFonts.poppins(
                   color: Colors.white,
                   fontSize: ResponsiveHelper.getResponsiveFontSize(context, 12),
                   fontWeight: FontWeight.bold,
@@ -476,9 +476,9 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
           Expanded(
             child: Text(
               text,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                 fontSize: ResponsiveHelper.getResponsiveFontSize(context, 14),
-                color: Color(0xFFC69C6D),
+                color: Color(0xFFFF5516),
               ),
             ),
           ),
@@ -505,7 +505,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
           SnackBar(
             content: Text(
               'Verification email sent! Please check your inbox.',
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                 fontSize: ResponsiveHelper.getResponsiveFontSize(context, 16),
                 fontWeight: FontWeight.w600,
                 color: Colors.white,
@@ -536,7 +536,7 @@ class _EmailVerificationPageState extends State<EmailVerificationPage> {
           SnackBar(
             content: Text(
               errorMessage,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                 fontSize: ResponsiveHelper.getResponsiveFontSize(context, 16),
                 fontWeight: FontWeight.w600,
                 color: Colors.white,

@@ -14,10 +14,18 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+  final _fullNameFieldKey = GlobalKey<FormFieldState<String>>();
+  final _emailFieldKey = GlobalKey<FormFieldState<String>>();
+  final _passwordFieldKey = GlobalKey<FormFieldState<String>>();
+  final _confirmPasswordFieldKey = GlobalKey<FormFieldState<String>>();
   final _fullNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _fullNameFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+  final _confirmPasswordFocusNode = FocusNode();
   bool _isLoading = false;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -32,6 +40,18 @@ class _RegisterPageState extends State<RegisterPage> {
   void initState() {
     super.initState();
     _passwordController.addListener(_calculatePasswordStrength);
+    _fullNameFocusNode.addListener(() {
+      setState(() {});
+    });
+    _emailFocusNode.addListener(() {
+      setState(() {});
+    });
+    _passwordFocusNode.addListener(() {
+      setState(() {});
+    });
+    _confirmPasswordFocusNode.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -41,6 +61,10 @@ class _RegisterPageState extends State<RegisterPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _fullNameFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
     super.dispose();
   }
 
@@ -123,7 +147,10 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _register() async {
-    if (!_formKey.currentState!.validate()) return;
+    if (!_formKey.currentState!.validate()) {
+      setState(() {});
+      return;
+    }
 
     // Additional validation for password strength
     if (_passwordStrengthValue < 0.5) {
@@ -135,7 +162,8 @@ class _RegisterPageState extends State<RegisterPage> {
           duration: Duration(seconds: 3),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 10)),
           ),
         ),
       );
@@ -151,7 +179,8 @@ class _RegisterPageState extends State<RegisterPage> {
           duration: Duration(seconds: 3),
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 10)),
           ),
         ),
       );
@@ -209,7 +238,8 @@ class _RegisterPageState extends State<RegisterPage> {
             duration: Duration(seconds: 4),
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.getResponsiveRadius(context, 10)),
             ),
           ),
         );
@@ -226,254 +256,465 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF3ECE7),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 350),
-              child: Material(
-                elevation: 8,
-                borderRadius: BorderRadius.circular(16),
-                color: Colors.white.withOpacity(0.9),
-                child: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal:
+                      ResponsiveHelper.getResponsivePadding(context, 24)),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 40)),
+                    // Title
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height:
+                          ResponsiveHelper.getResponsivePadding(context, 30),
+                      fit: BoxFit.contain,
+                    ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 20)),
+                    // Subtitle
+                    Text(
+                      'Create an account',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize:
+                            ResponsiveHelper.getResponsiveFontSize(context, 16),
+                        fontWeight: FontWeight.normal,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 20)),
+                    // Full Name field
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CircleAvatar(
-                          radius: 24,
-                          backgroundColor: Colors.brown.shade100,
-                          child: Icon(Icons.coffee_outlined,
-                              color: Colors.brown.shade700, size: 28),
-                        ),
-                        const SizedBox(height: 16),
-                        Text(
-                          'Create Account',
-                          style: TextStyle(
-                            fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                context, 22),
-                            fontWeight: FontWeight.bold,
-                            color: Colors.brown,
-                            letterSpacing: 1.0,
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeInOut,
+                          decoration: BoxDecoration(
+                            color: _fullNameFocusNode.hasFocus
+                                ? Colors.grey.shade300
+                                : Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.getResponsiveRadius(
+                                    context, 12)),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                        TextFormField(
-                          controller: _fullNameController,
-                          validator: _validateFullName,
-                          decoration: InputDecoration(
-                            labelText: 'Full Name',
-                            prefixIcon:
-                                const Icon(Icons.person_outline, size: 18),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            filled: true,
-                            fillColor: Colors.brown.withOpacity(0.05),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 10),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        TextFormField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          validator: _validateEmail,
-                          decoration: InputDecoration(
-                            labelText: 'Email',
-                            prefixIcon:
-                                const Icon(Icons.email_outlined, size: 18),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            filled: true,
-                            fillColor: Colors.brown.withOpacity(0.05),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 10),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        TextFormField(
-                          controller: _passwordController,
-                          obscureText: _obscurePassword,
-                          validator: _validatePassword,
-                          decoration: InputDecoration(
-                            labelText: 'Password',
-                            prefixIcon:
-                                const Icon(Icons.lock_outline, size: 18),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscurePassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                size: 18,
+                          child: TextFormField(
+                            key: _fullNameFieldKey,
+                            controller: _fullNameController,
+                            focusNode: _fullNameFocusNode,
+                            onChanged: (_) => setState(() {}),
+                            validator: _validateFullName,
+                            decoration: InputDecoration(
+                              hintText: 'Full Name',
+                              filled: false,
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              errorStyle: TextStyle(height: 0),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal:
+                                    ResponsiveHelper.getResponsivePadding(
+                                        context, 16),
+                                vertical: ResponsiveHelper.getResponsivePadding(
+                                    context, 13),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscurePassword = !_obscurePassword;
-                                });
-                              },
                             ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            filled: true,
-                            fillColor: Colors.brown.withOpacity(0.05),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 10),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        TextFormField(
-                          controller: _confirmPasswordController,
-                          obscureText: _obscureConfirmPassword,
-                          validator: _validateConfirmPassword,
-                          decoration: InputDecoration(
-                            labelText: 'Confirm Password',
-                            prefixIcon:
-                                const Icon(Icons.lock_outline, size: 18),
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                _obscureConfirmPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                size: 18,
+                        if (_fullNameFieldKey.currentState?.hasError == true)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: ResponsiveHelper.getResponsivePadding(
+                                    context, 4),
+                                left: ResponsiveHelper.getResponsivePadding(
+                                    context, 16)),
+                            child: Text(
+                              _fullNameFieldKey.currentState?.errorText ?? '',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize:
+                                    ResponsiveHelper.getResponsiveFontSize(
+                                        context, 12),
                               ),
-                              onPressed: () {
-                                setState(() {
-                                  _obscureConfirmPassword =
-                                      !_obscureConfirmPassword;
-                                });
-                              },
                             ),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
-                            filled: true,
-                            fillColor: Colors.brown.withOpacity(0.05),
-                            contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 10),
+                          ),
+                      ],
+                    ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 16)),
+                    // Email field
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeInOut,
+                          decoration: BoxDecoration(
+                            color: _emailFocusNode.hasFocus
+                                ? Colors.grey.shade300
+                                : Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.getResponsiveRadius(
+                                    context, 12)),
+                          ),
+                          child: TextFormField(
+                            key: _emailFieldKey,
+                            controller: _emailController,
+                            focusNode: _emailFocusNode,
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (_) => setState(() {}),
+                            validator: _validateEmail,
+                            decoration: InputDecoration(
+                              hintText: 'Email',
+                              filled: false,
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              errorStyle: TextStyle(height: 0),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal:
+                                    ResponsiveHelper.getResponsivePadding(
+                                        context, 16),
+                                vertical: ResponsiveHelper.getResponsivePadding(
+                                    context, 13),
+                              ),
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        // Terms and conditions checkbox
-                        Row(
-                          children: [
-                            Checkbox(
-                              value: _acceptTerms,
-                              onChanged: (value) {
-                                setState(() {
-                                  _acceptTerms = value ?? false;
-                                });
-                              },
-                              activeColor: Colors.brown.shade700,
+                        if (_emailFieldKey.currentState?.hasError == true)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: ResponsiveHelper.getResponsivePadding(
+                                    context, 4),
+                                left: ResponsiveHelper.getResponsivePadding(
+                                    context, 16)),
+                            child: Text(
+                              _emailFieldKey.currentState?.errorText ?? '',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize:
+                                    ResponsiveHelper.getResponsiveFontSize(
+                                        context, 12),
+                              ),
                             ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
+                          ),
+                      ],
+                    ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 16)),
+                    // Password field
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeInOut,
+                          decoration: BoxDecoration(
+                            color: _passwordFocusNode.hasFocus
+                                ? Colors.grey.shade300
+                                : Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.getResponsiveRadius(
+                                    context, 12)),
+                          ),
+                          child: TextFormField(
+                            key: _passwordFieldKey,
+                            controller: _passwordController,
+                            focusNode: _passwordFocusNode,
+                            obscureText: _obscurePassword,
+                            onChanged: (_) => setState(() {}),
+                            validator: _validatePassword,
+                            decoration: InputDecoration(
+                              hintText: 'Password',
+                              filled: false,
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              errorStyle: TextStyle(height: 0),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey.shade600,
+                                ),
+                                onPressed: () {
                                   setState(() {
-                                    _acceptTerms = !_acceptTerms;
+                                    _obscurePassword = !_obscurePassword;
                                   });
                                 },
-                                child: RichText(
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      fontSize: ResponsiveHelper
-                                          .getResponsiveFontSize(context, 12),
-                                      color: Colors.grey[700],
-                                    ),
-                                    children: [
-                                      TextSpan(text: 'I agree to the '),
-                                      WidgetSpan(
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const PrivacyPolicyPage(),
-                                              ),
-                                            );
-                                          },
-                                          child: Text(
-                                            'Terms and Conditions and Privacy Policy',
-                                            style: TextStyle(
-                                              fontSize: ResponsiveHelper
-                                                  .getResponsiveFontSize(
-                                                      context, 12),
-                                              color: Color(0xFFC69C6D),
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal:
+                                    ResponsiveHelper.getResponsivePadding(
+                                        context, 16),
+                                vertical: ResponsiveHelper.getResponsivePadding(
+                                    context, 13),
                               ),
                             ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.brown.shade700,
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              elevation: 2,
-                            ),
-                            onPressed: _isLoading ? null : _register,
-                            child: _isLoading
-                                ? const SizedBox(
-                                    height: 18,
-                                    width: 18,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                          Colors.white),
-                                    ),
-                                  )
-                                : Text('Register',
-                                    style: TextStyle(
-                                        fontSize: ResponsiveHelper
-                                            .getResponsiveFontSize(context, 15),
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white)),
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Already have an account?",
-                                style: TextStyle(
-                                  fontSize:
-                                      ResponsiveHelper.getResponsiveFontSize(
-                                          context, 13),
-                                )),
-                            TextButton(
-                              onPressed: widget.onLoginTap,
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                  fontSize:
-                                      ResponsiveHelper.getResponsiveFontSize(
-                                          context, 13),
-                                  color: Colors.brown,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                        if (_passwordFieldKey.currentState?.hasError == true)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: ResponsiveHelper.getResponsivePadding(
+                                    context, 4),
+                                left: ResponsiveHelper.getResponsivePadding(
+                                    context, 16)),
+                            child: Text(
+                              _passwordFieldKey.currentState?.errorText ?? '',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize:
+                                    ResponsiveHelper.getResponsiveFontSize(
+                                        context, 12),
                               ),
                             ),
-                          ],
+                          ),
+                      ],
+                    ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 16)),
+                    // Confirm Password field
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeInOut,
+                          decoration: BoxDecoration(
+                            color: _confirmPasswordFocusNode.hasFocus
+                                ? Colors.grey.shade300
+                                : Colors.grey.shade200,
+                            borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.getResponsiveRadius(
+                                    context, 12)),
+                          ),
+                          child: TextFormField(
+                            key: _confirmPasswordFieldKey,
+                            controller: _confirmPasswordController,
+                            focusNode: _confirmPasswordFocusNode,
+                            obscureText: _obscureConfirmPassword,
+                            onChanged: (_) => setState(() {}),
+                            validator: _validateConfirmPassword,
+                            decoration: InputDecoration(
+                              hintText: 'Confirm Password',
+                              filled: false,
+                              border: InputBorder.none,
+                              enabledBorder: InputBorder.none,
+                              focusedBorder: InputBorder.none,
+                              errorBorder: InputBorder.none,
+                              focusedErrorBorder: InputBorder.none,
+                              errorStyle: TextStyle(height: 0),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _obscureConfirmPassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: Colors.grey.shade600,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                  });
+                                },
+                              ),
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal:
+                                    ResponsiveHelper.getResponsivePadding(
+                                        context, 16),
+                                vertical: ResponsiveHelper.getResponsivePadding(
+                                    context, 13),
+                              ),
+                            ),
+                          ),
+                        ),
+                        if (_confirmPasswordFieldKey.currentState?.hasError ==
+                            true)
+                          Padding(
+                            padding: EdgeInsets.only(
+                                top: ResponsiveHelper.getResponsivePadding(
+                                    context, 4),
+                                left: ResponsiveHelper.getResponsivePadding(
+                                    context, 16)),
+                            child: Text(
+                              _confirmPasswordFieldKey
+                                      .currentState?.errorText ??
+                                  '',
+                              style: TextStyle(
+                                color: Colors.red,
+                                fontSize:
+                                    ResponsiveHelper.getResponsiveFontSize(
+                                        context, 12),
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 16)),
+                    // Terms and conditions checkbox
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: _acceptTerms,
+                          onChanged: (value) {
+                            setState(() {
+                              _acceptTerms = value ?? false;
+                            });
+                          },
+                          activeColor: Colors.black87,
+                        ),
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _acceptTerms = !_acceptTerms;
+                              });
+                            },
+                            child: RichText(
+                              text: TextSpan(
+                                style: TextStyle(
+                                  fontSize:
+                                      ResponsiveHelper.getResponsiveFontSize(
+                                          context, 14),
+                                  color: Colors.black87,
+                                ),
+                                children: [
+                                  TextSpan(text: 'I agree to the '),
+                                  WidgetSpan(
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const PrivacyPolicyPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: Text(
+                                        'Terms and Conditions and Privacy Policy',
+                                        style: TextStyle(
+                                          fontSize: ResponsiveHelper
+                                              .getResponsiveFontSize(
+                                                  context, 14),
+                                          color: Colors.black87,
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 20)),
+                    // Register button
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFFFF5516).withOpacity(0.9),
+                          foregroundColor: Colors.white,
+                          padding: EdgeInsets.symmetric(
+                              vertical: ResponsiveHelper.getResponsivePadding(
+                                  context, 16)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(
+                                ResponsiveHelper.getResponsiveRadius(
+                                    context, 12)),
+                          ),
+                          elevation: 0,
+                        ),
+                        onPressed: _isLoading ? null : _register,
+                        child: _isLoading
+                            ? SizedBox(
+                                height: ResponsiveHelper.getResponsiveIconSize(
+                                    context, 20),
+                                width: ResponsiveHelper.getResponsiveIconSize(
+                                    context, 20),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                ),
+                              )
+                            : Text(
+                                'Sign up',
+                                style: TextStyle(
+                                  fontSize:
+                                      ResponsiveHelper.getResponsiveFontSize(
+                                          context, 16),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                      ),
+                    ),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 20)),
+                    // Login section
+                    Column(
+                      children: [
+                        Text(
+                          "Already have an account?",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: ResponsiveHelper.getResponsiveFontSize(
+                                context, 14),
+                            color: Colors.black87,
+                          ),
+                        ),
+                        SizedBox(
+                            height: ResponsiveHelper.getResponsivePadding(
+                                context, 4)),
+                        TextButton(
+                          onPressed: widget.onLoginTap,
+                          child: Text(
+                            "Log in",
+                            style: TextStyle(
+                              fontSize: ResponsiveHelper.getResponsiveFontSize(
+                                  context, 16),
+                              color: Colors.black87,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ),

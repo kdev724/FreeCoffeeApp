@@ -29,14 +29,17 @@ class _UserProfilePageState extends State<UserProfilePage> {
       appBar: AppBar(
         title: const Text(
           'User Profile',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Color(0xFFC69C6D),
+        backgroundColor: Colors.white,
         foregroundColor: Colors.white,
       ),
       body: SingleChildScrollView(
-        padding:
-            EdgeInsets.all(ResponsiveHelper.getResponsivePadding(context, 16)),
+        padding: EdgeInsets.only(
+            top: ResponsiveHelper.getResponsivePadding(context, 5),
+            bottom: ResponsiveHelper.getResponsivePadding(context, 16),
+            left: ResponsiveHelper.getResponsivePadding(context, 16),
+            right: ResponsiveHelper.getResponsivePadding(context, 16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -74,7 +77,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                         CircleAvatar(
                           radius:
                               ResponsiveHelper.getResponsiveRadius(context, 30),
-                          backgroundColor: Color(0xFFC69C6D),
+                          backgroundColor: Color(0xFFFF5516),
                           child: Text(
                             _getInitials(
                                 userProfile?['full_name'] ?? user.email ?? 'U'),
@@ -235,7 +238,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
       children: [
         Icon(icon,
             size: ResponsiveHelper.getResponsiveFontSize(context, 32),
-            color: Color(0xFFC69C6D)),
+            color: Color(0xFFFF5516)),
         SizedBox(height: ResponsiveHelper.getResponsivePadding(context, 8)),
         Text(
           value,

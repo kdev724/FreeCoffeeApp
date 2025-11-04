@@ -6,11 +6,13 @@ import 'utils/responsive_helper.dart';
 class SurveyPage extends StatefulWidget {
   final String surveyUrl;
   final Function(double)? onSurveyCompleted;
+  final String? heroTag;
 
   const SurveyPage({
     super.key,
     required this.surveyUrl,
     this.onSurveyCompleted,
+    this.heroTag,
   });
 
   @override
@@ -58,8 +60,7 @@ class _SurveyPageState extends State<SurveyPage> {
 
   void _checkSurveyCompletion(String url) async {
     print('Reward Completed: $url');
-    if (url.contains('reward_complete') ||
-        await AppConfigService.isTestMode()) {
+    if (url.contains('reward_amount_in_app_currency')) {
       // Extract reward from URL
       double earnedCoins = await _parseCoins(url);
       print('Coins123123123123: $earnedCoins');
@@ -76,11 +77,10 @@ class _SurveyPageState extends State<SurveyPage> {
     try {
       final uri = Uri.parse(url);
       final coins = uri.queryParameters['reward_amount_in_app_currency'] ??
-          uri.queryParameters['coins'] ??
           uri.queryParameters['reward'];
       final percentage =
           await AppConfigService.getSurveyCreditEarningPercentage();
-      return coins != null ? (double.tryParse(coins) ?? 0) * percentage : 0.0;
+      return coins != null ? (double.tryParse(coins) ?? 0) * percentage : 0.001;
     } catch (e) {
       print('❌ Error parsing coins from URL: $e');
       return 0.0;
@@ -92,13 +92,13 @@ class _SurveyPageState extends State<SurveyPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Take Survey',
+          'Complete Survey',
           style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
               fontSize: ResponsiveHelper.getResponsiveFontSize(context, 20)),
         ),
-        backgroundColor: const Color(0xFFC69C6D),
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
@@ -114,6 +114,12 @@ class _SurveyPageState extends State<SurveyPage> {
           if (_isLoading)
             const Center(
               child: CircularProgressIndicator(),
+            ),
+          // Hero placeholder for smooth transition
+          if (widget.heroTag != null)
+            Hero(
+              tag: widget.heroTag!,
+              child: Container(),
             ),
         ],
       ),

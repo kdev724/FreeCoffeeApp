@@ -3,7 +3,7 @@ class AppConfig {
   static const String coffeeShopUrl = 'https://freecoffeestore.com';
 
   // App Information
-  static const String appName = 'Coffee Credit App';
+  static const String appName = 'Free Coffee App';
   static const String appVersion = '1.0.0';
   static const String appFont = 'Inter';
 

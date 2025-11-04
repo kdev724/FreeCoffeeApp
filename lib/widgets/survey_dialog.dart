@@ -277,7 +277,7 @@ class _SurveyDialogState extends State<SurveyDialog> {
               ),
               const SizedBox(width: 3),
               Text(
-                '${survey['credits'].toStringAsFixed(1)} credits',
+                '${_formatCreditsDisplay(survey['credits'])}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       fontSize:
                           ResponsiveHelper.getResponsiveFontSize(context, 10),
@@ -343,7 +343,7 @@ class _SurveyDialogState extends State<SurveyDialog> {
             ),
             const Spacer(),
             Text(
-              '${_selectedSurvey!['credits'].toStringAsFixed(1)} credits',
+              '${_formatCreditsDisplay(_selectedSurvey!['credits'])}',
               style: TextStyle(
                 fontSize: ResponsiveHelper.getResponsiveFontSize(context, 10),
                 fontWeight: FontWeight.w600,
@@ -559,7 +559,7 @@ class _SurveyDialogState extends State<SurveyDialog> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                          'Earned ${_selectedSurvey!['credits'].toStringAsFixed(1)} credits!'),
+                          'Earned ${_formatCreditsDisplay(_selectedSurvey!['credits'])}!'),
                       backgroundColor: Colors.green,
                       duration: const Duration(seconds: 2),
                     ),
@@ -577,7 +577,7 @@ class _SurveyDialogState extends State<SurveyDialog> {
                   ),
                 ),
                 child: Text(
-                  'Claim ${_selectedSurvey!['credits'].toStringAsFixed(1)} Credits',
+                  'Claim ${_formatCreditsDisplay(_selectedSurvey!['credits'])}',
                   style: TextStyle(
                       fontSize:
                           ResponsiveHelper.getResponsiveFontSize(context, 10),
@@ -589,5 +589,17 @@ class _SurveyDialogState extends State<SurveyDialog> {
         ),
       ],
     );
+  }
+
+  String _formatCreditsDisplay(double amount) {
+    if (amount < 0.01) {
+      // Show as cents for amounts less than 1 cent
+      print('Amount123123123123: $amount');
+      double cents = (amount * 100).toDouble();
+      return '${cents.toStringAsFixed(2)}¢';
+    } else {
+      // Show as dollars for larger amounts
+      return '\$${amount.toStringAsFixed(2)}';
+    }
   }
 }

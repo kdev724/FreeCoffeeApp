@@ -137,8 +137,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
           .from('profiles')
           .select('*')
           .order('created_at', ascending: false)
-          .range(_currentUserPage * _usersPerPage,
-              (_currentUserPage + 1) * _usersPerPage - 1);
+          .range(
+            _currentUserPage * _usersPerPage,
+            (_currentUserPage + 1) * _usersPerPage - 1,
+          );
 
       setState(() {
         _allUsers.addAll(List<Map<String, dynamic>>.from(response));
@@ -275,8 +277,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
           backgroundColor: Colors.green,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  ResponsiveHelper.getResponsiveRadius(context, 10))),
+            borderRadius: BorderRadius.circular(
+              ResponsiveHelper.getResponsiveRadius(context, 10),
+            ),
+          ),
         ),
       );
 
@@ -288,8 +292,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
           backgroundColor: Colors.red,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                  ResponsiveHelper.getResponsiveRadius(context, 10))),
+            borderRadius: BorderRadius.circular(
+              ResponsiveHelper.getResponsiveRadius(context, 10),
+            ),
+          ),
         ),
       );
     }
@@ -300,8 +306,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
       context: context,
       builder: (context) => AlertDialog(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-                ResponsiveHelper.getResponsiveRadius(context, 15))),
+          borderRadius: BorderRadius.circular(
+            ResponsiveHelper.getResponsiveRadius(context, 15),
+          ),
+        ),
         title: const Row(
           children: [
             Icon(Icons.warning, color: Colors.orange),
@@ -310,7 +318,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ],
         ),
         content: const Text(
-            'Are you sure you want to delete this user? This action cannot be undone.'),
+          'Are you sure you want to delete this user? This action cannot be undone.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
@@ -322,8 +331,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                      ResponsiveHelper.getResponsiveRadius(context, 8))),
+                borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.getResponsiveRadius(context, 8),
+                ),
+              ),
             ),
             child: const Text('Delete'),
           ),
@@ -344,8 +355,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
             backgroundColor: Colors.green,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    ResponsiveHelper.getResponsiveRadius(context, 10))),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 10),
+              ),
+            ),
           ),
         );
 
@@ -357,8 +370,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
             backgroundColor: Colors.red,
             behavior: SnackBarBehavior.floating,
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    ResponsiveHelper.getResponsiveRadius(context, 10))),
+              borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 10),
+              ),
+            ),
           ),
         );
       }
@@ -383,15 +398,17 @@ class _AdminDashboardState extends State<AdminDashboard> {
         children: [
           Container(
             padding: EdgeInsets.all(
-                ResponsiveHelper.getResponsivePadding(context, 6)),
+              ResponsiveHelper.getResponsivePadding(context, 6),
+            ),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(
-                  ResponsiveHelper.getResponsiveRadius(context, 6)),
+                ResponsiveHelper.getResponsiveRadius(context, 6),
+              ),
             ),
             child: Icon(
               Icons.admin_panel_settings,
-              color: Color(0xFFC69C6D),
+              color: Color(0xFFFF5516),
               size: ResponsiveHelper.getResponsiveIconSize(context, 20),
             ),
           ),
@@ -419,18 +436,20 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ),
         ],
       ),
-      backgroundColor: Color(0xFFC69C6D),
+      backgroundColor: Color(0xFFFF5516),
       foregroundColor: Colors.white,
       elevation: 0,
       actions: [
         if (!_isMobile)
           Container(
             margin: EdgeInsets.only(
-                right: ResponsiveHelper.getResponsivePadding(context, 8)),
+              right: ResponsiveHelper.getResponsivePadding(context, 8),
+            ),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.1),
               borderRadius: BorderRadius.circular(
-                  ResponsiveHelper.getResponsiveRadius(context, 8)),
+                ResponsiveHelper.getResponsiveRadius(context, 8),
+              ),
             ),
             child: IconButton(
               icon: Icon(_isSidebarCollapsed ? Icons.menu_open : Icons.menu),
@@ -454,45 +473,47 @@ class _AdminDashboardState extends State<AdminDashboard> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [
-              Colors.brown.shade700,
-              Colors.brown.shade600,
-            ],
+            colors: [Colors.brown.shade700, Colors.brown.shade600],
           ),
         ),
         child: Column(
           children: [
             Container(
               padding: EdgeInsets.fromLTRB(
-                  ResponsiveHelper.getResponsivePadding(context, 20),
-                  60,
-                  ResponsiveHelper.getResponsivePadding(context, 20),
-                  20),
+                ResponsiveHelper.getResponsivePadding(context, 20),
+                60,
+                ResponsiveHelper.getResponsivePadding(context, 20),
+                20,
+              ),
               child: Column(
                 children: [
                   Container(
                     padding: EdgeInsets.all(
-                        ResponsiveHelper.getResponsivePadding(context, 16)),
+                      ResponsiveHelper.getResponsivePadding(context, 16),
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(
-                          ResponsiveHelper.getResponsiveRadius(context, 16)),
+                        ResponsiveHelper.getResponsiveRadius(context, 16),
+                      ),
                     ),
                     child: Icon(
                       Icons.admin_panel_settings,
-                      color: Color(0xFFC69C6D),
+                      color: Color(0xFFFF5516),
                       size: ResponsiveHelper.getResponsiveIconSize(context, 48),
                     ),
                   ),
                   SizedBox(
-                      height:
-                          ResponsiveHelper.getResponsivePadding(context, 16)),
+                    height: ResponsiveHelper.getResponsivePadding(context, 16),
+                  ),
                   Text(
                     'Admin Panel',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize:
-                          ResponsiveHelper.getResponsiveFontSize(context, 24),
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        24,
+                      ),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -500,8 +521,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     'Coffee Credit Management',
                     style: TextStyle(
                       color: Colors.white70,
-                      fontSize:
-                          ResponsiveHelper.getResponsiveFontSize(context, 14),
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        14,
+                      ),
                     ),
                   ),
                 ],
@@ -513,31 +536,51 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 20)),
+                      ResponsiveHelper.getResponsiveRadius(context, 20),
+                    ),
                     topRight: Radius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 20)),
+                      ResponsiveHelper.getResponsiveRadius(context, 20),
+                    ),
                   ),
                 ),
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: [
                     SizedBox(
-                        height:
-                            ResponsiveHelper.getResponsivePadding(context, 20)),
+                      height: ResponsiveHelper.getResponsivePadding(
+                        context,
+                        20,
+                      ),
+                    ),
                     _buildMobileDrawerItem(
-                        'overview', 'Overview', Icons.dashboard),
+                      'overview',
+                      'Overview',
+                      Icons.dashboard,
+                    ),
                     _buildMobileDrawerItem('users', 'Users', Icons.people),
                     _buildMobileDrawerItem(
-                        'credits', 'Credits', Icons.attach_money),
-                    _buildMobileDrawerItem('coffee_redemptions',
-                        'Coffee Redemptions', Icons.local_shipping),
+                      'credits',
+                      'Credits',
+                      Icons.attach_money,
+                    ),
+                    _buildMobileDrawerItem(
+                      'coffee_redemptions',
+                      'Coffee Redemptions',
+                      Icons.local_shipping,
+                    ),
                     // _buildMobileDrawerItem(
                     //     'adgate_test', 'AdGate Test', Icons.quiz),
                     _buildMobileDrawerItem(
-                        'configuration', 'Configuration', Icons.settings),
+                      'configuration',
+                      'Configuration',
+                      Icons.settings,
+                    ),
                     SizedBox(
-                        height:
-                            ResponsiveHelper.getResponsivePadding(context, 20)),
+                      height: ResponsiveHelper.getResponsivePadding(
+                        context,
+                        20,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -555,19 +598,22 @@ class _AdminDashboardState extends State<AdminDashboard> {
       decoration: BoxDecoration(
         color: isSelected ? Colors.brown.shade50 : Colors.transparent,
         borderRadius: BorderRadius.circular(
-            ResponsiveHelper.getResponsiveRadius(context, 12)),
+          ResponsiveHelper.getResponsiveRadius(context, 12),
+        ),
         border: isSelected
             ? Border.all(color: Colors.brown.shade200, width: 1)
             : null,
       ),
       child: ListTile(
         leading: Container(
-          padding:
-              EdgeInsets.all(ResponsiveHelper.getResponsivePadding(context, 8)),
+          padding: EdgeInsets.all(
+            ResponsiveHelper.getResponsivePadding(context, 8),
+          ),
           decoration: BoxDecoration(
             color: isSelected ? Colors.brown.shade100 : Colors.grey.shade100,
             borderRadius: BorderRadius.circular(
-                ResponsiveHelper.getResponsiveRadius(context, 8)),
+              ResponsiveHelper.getResponsiveRadius(context, 8),
+            ),
           ),
           child: Icon(
             icon,
@@ -602,9 +648,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
             color: Colors.white,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(
-                  ResponsiveHelper.getResponsiveRadius(context, 20)),
+                ResponsiveHelper.getResponsiveRadius(context, 20),
+              ),
               bottomRight: Radius.circular(
-                  ResponsiveHelper.getResponsiveRadius(context, 20)),
+                ResponsiveHelper.getResponsiveRadius(context, 20),
+              ),
             ),
             boxShadow: [
               BoxShadow(
@@ -618,11 +666,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
             children: [
               Container(
                 padding: EdgeInsets.all(
-                    ResponsiveHelper.getResponsivePadding(context, 12)),
+                  ResponsiveHelper.getResponsivePadding(context, 12),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.brown.shade50,
                   borderRadius: BorderRadius.circular(
-                      ResponsiveHelper.getResponsiveRadius(context, 12)),
+                    ResponsiveHelper.getResponsiveRadius(context, 12),
+                  ),
                 ),
                 child: Icon(
                   _getTabIcon(_selectedTab),
@@ -631,7 +681,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ),
               ),
               SizedBox(
-                  width: ResponsiveHelper.getResponsivePadding(context, 16)),
+                width: ResponsiveHelper.getResponsivePadding(context, 16),
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -639,17 +690,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     Text(
                       _getTabTitle(_selectedTab),
                       style: TextStyle(
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 20),
+                        fontSize: ResponsiveHelper.getResponsiveFontSize(
+                          context,
+                          20,
+                        ),
                         fontWeight: FontWeight.bold,
                         color: Colors.grey.shade800,
                       ),
                     ),
                     Text(
-                      'Manage your Coffee Credit app',
+                      'Manage your Free Coffee App',
                       style: TextStyle(
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 14),
+                        fontSize: ResponsiveHelper.getResponsiveFontSize(
+                          context,
+                          14,
+                        ),
                         color: Colors.grey.shade600,
                       ),
                     ),
@@ -663,7 +718,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
         Expanded(
           child: Container(
             margin: EdgeInsets.all(
-                ResponsiveHelper.getResponsivePadding(context, 16)),
+              ResponsiveHelper.getResponsivePadding(context, 16),
+            ),
             child: _buildMainContent(),
           ),
         ),
@@ -693,15 +749,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
               children: [
                 Container(
                   padding: EdgeInsets.all(
-                      ResponsiveHelper.getResponsivePadding(context, 16)),
+                    ResponsiveHelper.getResponsivePadding(context, 16),
+                  ),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
-                      colors: [
-                        Colors.brown.shade700,
-                        Colors.brown.shade600,
-                      ],
+                      colors: [Colors.brown.shade700, Colors.brown.shade600],
                     ),
                   ),
                   child: _isSidebarCollapsed
@@ -712,19 +766,27 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(
-                                    ResponsiveHelper.getResponsiveRadius(
-                                        context, 8)),
+                                  ResponsiveHelper.getResponsiveRadius(
+                                    context,
+                                    8,
+                                  ),
+                                ),
                               ),
                               child: Icon(
                                 Icons.admin_panel_settings,
                                 color: Colors.brown.shade700,
                                 size: ResponsiveHelper.getResponsiveIconSize(
-                                    context, 20),
+                                  context,
+                                  20,
+                                ),
                               ),
                             ),
                             SizedBox(
-                                height: ResponsiveHelper.getResponsivePadding(
-                                    context, 8)),
+                              height: ResponsiveHelper.getResponsivePadding(
+                                context,
+                                8,
+                              ),
+                            ),
                             Container(
                               width: 6,
                               height: 6,
@@ -743,26 +805,36 @@ class _AdminDashboardState extends State<AdminDashboard> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(
-                                    ResponsiveHelper.getResponsiveRadius(
-                                        context, 8)),
+                                  ResponsiveHelper.getResponsiveRadius(
+                                    context,
+                                    8,
+                                  ),
+                                ),
                               ),
                               child: Icon(
                                 Icons.admin_panel_settings,
                                 color: Colors.brown.shade700,
                                 size: ResponsiveHelper.getResponsiveIconSize(
-                                    context, 24),
+                                  context,
+                                  24,
+                                ),
                               ),
                             ),
                             SizedBox(
-                                height: ResponsiveHelper.getResponsivePadding(
-                                    context, 12)),
+                              height: ResponsiveHelper.getResponsivePadding(
+                                context,
+                                12,
+                              ),
+                            ),
                             Text(
                               'Admin Panel',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize:
                                     ResponsiveHelper.getResponsiveFontSize(
-                                        context, 18),
+                                  context,
+                                  18,
+                                ),
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -772,7 +844,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                                 color: Colors.white70,
                                 fontSize:
                                     ResponsiveHelper.getResponsiveFontSize(
-                                        context, 12),
+                                  context,
+                                  12,
+                                ),
                               ),
                             ),
                           ],
@@ -781,29 +855,56 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 Expanded(
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                        vertical:
-                            ResponsiveHelper.getResponsivePadding(context, 16)),
+                      vertical: ResponsiveHelper.getResponsivePadding(
+                        context,
+                        16,
+                      ),
+                    ),
                     child: Column(
                       children: [
                         _buildDesktopSidebarItem(
-                            'overview', 'Overview', Icons.dashboard),
+                          'overview',
+                          'Overview',
+                          Icons.dashboard,
+                        ),
                         _buildDesktopSidebarItem(
-                            'users', 'Users', Icons.people),
+                          'users',
+                          'Users',
+                          Icons.people,
+                        ),
                         _buildDesktopSidebarItem(
-                            'credits', 'Credits', Icons.attach_money),
+                          'credits',
+                          'Credits',
+                          Icons.attach_money,
+                        ),
                         _buildDesktopSidebarItem(
-                            'offers', 'Offers', Icons.card_giftcard),
+                          'offers',
+                          'Offers',
+                          Icons.card_giftcard,
+                        ),
                         _buildDesktopSidebarItem(
-                            'rewards', 'Rewards', Icons.coffee),
-                        _buildDesktopSidebarItem('coffee_redemptions',
-                            'Coffee Redemptions', Icons.local_shipping),
+                          'rewards',
+                          'Rewards',
+                          Icons.coffee,
+                        ),
+                        _buildDesktopSidebarItem(
+                          'coffee_redemptions',
+                          'Coffee Redemptions',
+                          Icons.local_shipping,
+                        ),
                         // _buildDesktopSidebarItem(
                         //     'adgate_test', 'AdGate Test', Icons.quiz),
                         _buildDesktopSidebarItem(
-                            'configuration', 'Configuration', Icons.settings),
+                          'configuration',
+                          'Configuration',
+                          Icons.settings,
+                        ),
                         SizedBox(
-                            height: ResponsiveHelper.getResponsivePadding(
-                                context, 16)),
+                          height: ResponsiveHelper.getResponsivePadding(
+                            context,
+                            16,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -816,7 +917,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
         Expanded(
           child: Container(
             margin: EdgeInsets.all(
-                ResponsiveHelper.getResponsivePadding(context, 24)),
+              ResponsiveHelper.getResponsivePadding(context, 24),
+            ),
             child: _buildMainContent(),
           ),
         ),
@@ -828,19 +930,22 @@ class _AdminDashboardState extends State<AdminDashboard> {
     final isSelected = _selectedTab == tab;
     return Container(
       margin: EdgeInsets.symmetric(
-          horizontal: ResponsiveHelper.getResponsivePadding(context, 16),
-          vertical: ResponsiveHelper.getResponsivePadding(context, 4)),
+        horizontal: ResponsiveHelper.getResponsivePadding(context, 16),
+        vertical: ResponsiveHelper.getResponsivePadding(context, 4),
+      ),
       child: _isSidebarCollapsed
           ? Tooltip(
               message: title,
               child: Container(
                 padding: EdgeInsets.all(
-                    ResponsiveHelper.getResponsivePadding(context, 12)),
+                  ResponsiveHelper.getResponsivePadding(context, 12),
+                ),
                 decoration: BoxDecoration(
                   color:
                       isSelected ? Colors.brown.shade100 : Colors.transparent,
                   borderRadius: BorderRadius.circular(
-                      ResponsiveHelper.getResponsiveRadius(context, 12)),
+                    ResponsiveHelper.getResponsiveRadius(context, 12),
+                  ),
                 ),
                 child: Icon(
                   icon,
@@ -854,7 +959,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
               decoration: BoxDecoration(
                 color: isSelected ? Colors.brown.shade50 : Colors.transparent,
                 borderRadius: BorderRadius.circular(
-                    ResponsiveHelper.getResponsiveRadius(context, 12)),
+                  ResponsiveHelper.getResponsiveRadius(context, 12),
+                ),
                 border: isSelected
                     ? Border.all(color: Colors.brown.shade200, width: 1)
                     : null,
@@ -862,13 +968,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
               child: ListTile(
                 leading: Container(
                   padding: EdgeInsets.all(
-                      ResponsiveHelper.getResponsivePadding(context, 8)),
+                    ResponsiveHelper.getResponsivePadding(context, 8),
+                  ),
                   decoration: BoxDecoration(
                     color: isSelected
                         ? Colors.brown.shade100
                         : Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 8)),
+                      ResponsiveHelper.getResponsiveRadius(context, 8),
+                    ),
                   ),
                   child: Icon(
                     icon,
@@ -957,14 +1065,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
   Widget _buildOverviewTab() {
     final totalUsers = _users.length;
-    final totalCredits = _users.fold<double>(
-      0.0,
-      (sum, user) {
-        final credits = user['credits'];
-        if (credits == null) return sum;
-        return sum + (credits is num ? credits.toDouble() : 0.0);
-      },
-    );
+    final totalCredits = _users.fold<double>(0.0, (sum, user) {
+      final credits = user['credits'];
+      if (credits == null) return sum;
+      return sum + (credits is num ? credits.toDouble() : 0.0);
+    });
     final activeUsers = _users.where((user) {
       final credits = user['credits'];
       if (credits == null) return false;
@@ -985,7 +1090,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
           ),
           SizedBox(height: ResponsiveHelper.getResponsivePadding(context, 6)),
           Text(
-            'Monitor your Coffee Credit app performance',
+            'Monitor your Free Coffee App performance',
             style: TextStyle(
               fontSize: ResponsiveHelper.getResponsiveFontSize(context, 14),
               color: Colors.grey.shade600,
@@ -1000,60 +1105,92 @@ class _AdminDashboardState extends State<AdminDashboard> {
   }
 
   Widget _buildResponsiveStatsRow(
-      int totalUsers, double totalCredits, int activeUsers) {
+    int totalUsers,
+    double totalCredits,
+    int activeUsers,
+  ) {
     if (_isMobile) {
       return Column(
         children: [
           _buildStatCard(
-              'Total Users', totalUsers.toString(), Icons.people, Colors.blue),
+            'Total Users',
+            totalUsers.toString(),
+            Icons.people,
+            Colors.blue,
+          ),
           SizedBox(height: ResponsiveHelper.getResponsivePadding(context, 16)),
           _buildStatCard(
-              'Total Credits',
-              '\$${totalCredits.toStringAsFixed(2)}',
-              Icons.attach_money,
-              Colors.green),
+            'Total Credits',
+            '\$${totalCredits.toStringAsFixed(2)}',
+            Icons.attach_money,
+            Colors.green,
+          ),
           SizedBox(height: ResponsiveHelper.getResponsivePadding(context, 16)),
-          _buildStatCard('Active Users', activeUsers.toString(), Icons.person,
-              Colors.orange),
+          _buildStatCard(
+            'Active Users',
+            activeUsers.toString(),
+            Icons.person,
+            Colors.orange,
+          ),
         ],
       );
     } else {
       return Row(
         children: [
           Expanded(
-              child: _buildStatCard('Total Users', totalUsers.toString(),
-                  Icons.people, Colors.blue)),
+            child: _buildStatCard(
+              'Total Users',
+              totalUsers.toString(),
+              Icons.people,
+              Colors.blue,
+            ),
+          ),
           SizedBox(width: ResponsiveHelper.getResponsivePadding(context, 20)),
           Expanded(
-              child: _buildStatCard(
-                  'Total Credits',
-                  '\$${totalCredits.toStringAsFixed(2)}',
-                  Icons.attach_money,
-                  Colors.green)),
+            child: _buildStatCard(
+              'Total Credits',
+              '\$${totalCredits.toStringAsFixed(2)}',
+              Icons.attach_money,
+              Colors.green,
+            ),
+          ),
           SizedBox(width: ResponsiveHelper.getResponsivePadding(context, 20)),
           Expanded(
-              child: _buildStatCard('Active Users', activeUsers.toString(),
-                  Icons.person, Colors.orange)),
+            child: _buildStatCard(
+              'Active Users',
+              activeUsers.toString(),
+              Icons.person,
+              Colors.orange,
+            ),
+          ),
         ],
       );
     }
   }
 
   Widget _buildStatCard(
-      String title, String value, IconData icon, Color color) {
+    String title,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Container(
-      padding:
-          EdgeInsets.all(ResponsiveHelper.getResponsivePadding(context, 16)),
+      padding: EdgeInsets.all(
+        ResponsiveHelper.getResponsivePadding(context, 16),
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(
-            ResponsiveHelper.getResponsiveRadius(context, 12)),
+          ResponsiveHelper.getResponsiveRadius(context, 12),
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.05),
             blurRadius: 8,
-            offset:
-                Offset(0, ResponsiveHelper.getResponsivePadding(context, 2)),
+            offset: Offset(
+              0,
+              ResponsiveHelper.getResponsivePadding(context, 2),
+            ),
           ),
         ],
       ),
@@ -1062,19 +1199,23 @@ class _AdminDashboardState extends State<AdminDashboard> {
               children: [
                 Container(
                   padding: EdgeInsets.all(
-                      ResponsiveHelper.getResponsivePadding(context, 8)),
+                    ResponsiveHelper.getResponsivePadding(context, 8),
+                  ),
                   decoration: BoxDecoration(
                     color: color.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 8)),
+                      ResponsiveHelper.getResponsiveRadius(context, 8),
+                    ),
                   ),
-                  child: Icon(icon,
-                      color: color,
-                      size:
-                          ResponsiveHelper.getResponsiveIconSize(context, 20)),
+                  child: Icon(
+                    icon,
+                    color: color,
+                    size: ResponsiveHelper.getResponsiveIconSize(context, 20),
+                  ),
                 ),
                 SizedBox(
-                    width: ResponsiveHelper.getResponsivePadding(context, 16)),
+                  width: ResponsiveHelper.getResponsivePadding(context, 16),
+                ),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1083,19 +1224,26 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         title,
                         style: TextStyle(
                           fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 12),
+                            context,
+                            12,
+                          ),
                           color: Colors.grey.shade600,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       SizedBox(
-                          height: ResponsiveHelper.getResponsivePadding(
-                              context, 4)),
+                        height: ResponsiveHelper.getResponsivePadding(
+                          context,
+                          4,
+                        ),
+                      ),
                       Text(
                         value,
                         style: TextStyle(
                           fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 18),
+                            context,
+                            18,
+                          ),
                           fontWeight: FontWeight.bold,
                           color: color,
                         ),
@@ -1110,35 +1258,44 @@ class _AdminDashboardState extends State<AdminDashboard> {
               children: [
                 Container(
                   padding: EdgeInsets.all(
-                      ResponsiveHelper.getResponsivePadding(context, 8)),
+                    ResponsiveHelper.getResponsivePadding(context, 8),
+                  ),
                   decoration: BoxDecoration(
                     color: color.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 8)),
+                      ResponsiveHelper.getResponsiveRadius(context, 8),
+                    ),
                   ),
-                  child: Icon(icon,
-                      color: color,
-                      size:
-                          ResponsiveHelper.getResponsiveIconSize(context, 24)),
+                  child: Icon(
+                    icon,
+                    color: color,
+                    size: ResponsiveHelper.getResponsiveIconSize(context, 24),
+                  ),
                 ),
                 SizedBox(
-                    height: ResponsiveHelper.getResponsivePadding(context, 12)),
+                  height: ResponsiveHelper.getResponsivePadding(context, 12),
+                ),
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize:
-                        ResponsiveHelper.getResponsiveFontSize(context, 14),
+                    fontSize: ResponsiveHelper.getResponsiveFontSize(
+                      context,
+                      14,
+                    ),
                     color: Colors.grey.shade600,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(
-                    height: ResponsiveHelper.getResponsivePadding(context, 6)),
+                  height: ResponsiveHelper.getResponsivePadding(context, 6),
+                ),
                 Text(
                   value,
                   style: TextStyle(
-                    fontSize:
-                        ResponsiveHelper.getResponsiveFontSize(context, 24),
+                    fontSize: ResponsiveHelper.getResponsiveFontSize(
+                      context,
+                      24,
+                    ),
                     fontWeight: FontWeight.bold,
                     color: color,
                   ),
@@ -1162,7 +1319,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
         // Header with search
         Container(
           padding: EdgeInsets.all(
-              ResponsiveHelper.getResponsivePadding(context, 16)),
+            ResponsiveHelper.getResponsivePadding(context, 16),
+          ),
           child: Column(
             children: [
               Row(
@@ -1171,8 +1329,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   Text(
                     'User Management',
                     style: TextStyle(
-                      fontSize:
-                          ResponsiveHelper.getResponsiveFontSize(context, 24),
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        24,
+                      ),
                       fontWeight: FontWeight.bold,
                       color: Colors.brown.shade700,
                     ),
@@ -1180,15 +1340,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   Text(
                     '${_users.length} users',
                     style: TextStyle(
-                      fontSize:
-                          ResponsiveHelper.getResponsiveFontSize(context, 16),
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        16,
+                      ),
                       color: Colors.grey.shade600,
                     ),
                   ),
                 ],
               ),
               SizedBox(
-                  height: ResponsiveHelper.getResponsivePadding(context, 16)),
+                height: ResponsiveHelper.getResponsivePadding(context, 16),
+              ),
               // Search bar
               TextField(
                 controller: _userSearchController,
@@ -1207,19 +1370,25 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       : null,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 12)),
+                      ResponsiveHelper.getResponsiveRadius(context, 12),
+                    ),
                     borderSide: BorderSide(color: Colors.grey.shade300),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 12)),
+                      ResponsiveHelper.getResponsiveRadius(context, 12),
+                    ),
                     borderSide: BorderSide(color: Colors.brown.shade600),
                   ),
                   contentPadding: EdgeInsets.symmetric(
-                    horizontal:
-                        ResponsiveHelper.getResponsivePadding(context, 16),
-                    vertical:
-                        ResponsiveHelper.getResponsivePadding(context, 12),
+                    horizontal: ResponsiveHelper.getResponsivePadding(
+                      context,
+                      16,
+                    ),
+                    vertical: ResponsiveHelper.getResponsivePadding(
+                      context,
+                      12,
+                    ),
                   ),
                 ),
               ),
@@ -1235,27 +1404,37 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     children: [
                       Icon(
                         Icons.people_outline,
-                        size:
-                            ResponsiveHelper.getResponsiveIconSize(context, 64),
+                        size: ResponsiveHelper.getResponsiveIconSize(
+                          context,
+                          64,
+                        ),
                         color: Colors.grey.shade400,
                       ),
                       SizedBox(
-                          height: ResponsiveHelper.getResponsivePadding(
-                              context, 16)),
+                        height: ResponsiveHelper.getResponsivePadding(
+                          context,
+                          16,
+                        ),
+                      ),
                       Text(
                         _userSearchController.text.isNotEmpty
                             ? 'No users found matching your search'
                             : 'No users found',
                         style: TextStyle(
                           fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 18),
+                            context,
+                            18,
+                          ),
                           color: Colors.grey.shade600,
                         ),
                       ),
                       if (_userSearchController.text.isNotEmpty) ...[
                         SizedBox(
-                            height: ResponsiveHelper.getResponsivePadding(
-                                context, 8)),
+                          height: ResponsiveHelper.getResponsivePadding(
+                            context,
+                            8,
+                          ),
+                        ),
                         TextButton(
                           onPressed: () {
                             _userSearchController.clear();
@@ -1275,11 +1454,13 @@ class _AdminDashboardState extends State<AdminDashboard> {
                       // Loading indicator for pagination
                       return Container(
                         padding: EdgeInsets.all(
-                            ResponsiveHelper.getResponsivePadding(context, 16)),
+                          ResponsiveHelper.getResponsivePadding(context, 16),
+                        ),
                         child: Center(
                           child: CircularProgressIndicator(
                             valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.brown.shade600),
+                              Colors.brown.shade600,
+                            ),
                           ),
                         ),
                       );
@@ -1288,8 +1469,11 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     final user = _users[index];
                     return Container(
                       margin: EdgeInsets.only(
-                          bottom: ResponsiveHelper.getResponsivePadding(
-                              context, 12)),
+                        bottom: ResponsiveHelper.getResponsivePadding(
+                          context,
+                          12,
+                        ),
+                      ),
                       child: _buildUserTile(user),
                     );
                   },
@@ -1307,7 +1491,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
         margin: EdgeInsets.all(0),
         child: Padding(
           padding: EdgeInsets.all(
-              ResponsiveHelper.getResponsivePadding(context, 16)),
+            ResponsiveHelper.getResponsivePadding(context, 16),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -1326,14 +1511,16 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           'U',
                       style: TextStyle(
                         color: Colors.brown.shade700,
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 16),
+                        fontSize: ResponsiveHelper.getResponsiveFontSize(
+                          context,
+                          16,
+                        ),
                       ),
                     ),
                   ),
                   SizedBox(
-                      width:
-                          ResponsiveHelper.getResponsivePadding(context, 12)),
+                    width: ResponsiveHelper.getResponsivePadding(context, 12),
+                  ),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1343,7 +1530,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                context, 16),
+                              context,
+                              16,
+                            ),
                           ),
                         ),
                         Text(
@@ -1351,7 +1540,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           style: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                context, 12),
+                              context,
+                              12,
+                            ),
                           ),
                         ),
                         Text(
@@ -1359,7 +1550,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
                           style: TextStyle(
                             color: Colors.grey.shade600,
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                context, 14),
+                              context,
+                              14,
+                            ),
                           ),
                         ),
                       ],
@@ -1368,7 +1561,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ],
               ),
               SizedBox(
-                  height: ResponsiveHelper.getResponsivePadding(context, 8)),
+                height: ResponsiveHelper.getResponsivePadding(context, 8),
+              ),
               Text(
                 'Joined: ${_formatDate(user['created_at'])}',
                 style: TextStyle(
@@ -1377,7 +1571,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 ),
               ),
               SizedBox(
-                  height: ResponsiveHelper.getResponsivePadding(context, 8)),
+                height: ResponsiveHelper.getResponsivePadding(context, 8),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -1391,12 +1586,15 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                     ),
                   ),
                   SizedBox(
-                      width: ResponsiveHelper.getResponsivePadding(context, 8)),
+                    width: ResponsiveHelper.getResponsivePadding(context, 8),
+                  ),
                   ElevatedButton.icon(
                     onPressed: () => _deleteUser(user['id']),
                     icon: Icon(
@@ -1407,8 +1605,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.red,
                       foregroundColor: Colors.white,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                     ),
                   ),
                 ],
@@ -1470,7 +1670,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
           children: [
             Text('User: ${user['full_name'] ?? user['email']}'),
             SizedBox(
-                height: ResponsiveHelper.getResponsivePadding(context, 16)),
+              height: ResponsiveHelper.getResponsivePadding(context, 16),
+            ),
             TextField(
               controller: creditsController,
               decoration: InputDecoration(
@@ -1511,7 +1712,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
               elevation: 4,
               child: Padding(
                 padding: EdgeInsets.all(
-                    ResponsiveHelper.getResponsivePadding(context, 16)),
+                  ResponsiveHelper.getResponsivePadding(context, 16),
+                ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -1519,18 +1721,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     Text(
                       'Credit Statistics',
                       style: TextStyle(
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 18),
+                        fontSize: ResponsiveHelper.getResponsiveFontSize(
+                          context,
+                          18,
+                        ),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     SizedBox(
-                        height:
-                            ResponsiveHelper.getResponsivePadding(context, 16)),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: _buildCreditStats(),
+                      height: ResponsiveHelper.getResponsivePadding(
+                        context,
+                        16,
                       ),
+                    ),
+                    Expanded(
+                      child: SingleChildScrollView(child: _buildCreditStats()),
                     ),
                   ],
                 ),
@@ -1543,34 +1748,34 @@ class _AdminDashboardState extends State<AdminDashboard> {
   }
 
   Widget _buildCreditStats() {
-    final totalCredits = _users.fold<double>(
-      0.0,
-      (sum, user) {
-        final credits = user['credits'];
-        if (credits == null) return sum;
-        return sum + (credits is num ? credits.toDouble() : 0.0);
-      },
-    );
+    final totalCredits = _users.fold<double>(0.0, (sum, user) {
+      final credits = user['credits'];
+      if (credits == null) return sum;
+      return sum + (credits is num ? credits.toDouble() : 0.0);
+    });
     final averageCredits =
         _users.isNotEmpty ? totalCredits / _users.length : 0.0;
-    final maxCredits = _users.fold<double>(
-      0.0,
-      (max, user) {
-        final credits = user['credits'];
-        if (credits == null) return max;
-        final creditValue = credits is num ? credits.toDouble() : 0.0;
-        return creditValue > max ? creditValue : max;
-      },
-    );
+    final maxCredits = _users.fold<double>(0.0, (max, user) {
+      final credits = user['credits'];
+      if (credits == null) return max;
+      final creditValue = credits is num ? credits.toDouble() : 0.0;
+      return creditValue > max ? creditValue : max;
+    });
 
     return Column(
       children: [
         _buildStatRow(
-            'Total Credits in System', '\$${totalCredits.toStringAsFixed(2)}'),
-        _buildStatRow('Average Credits per User',
-            '\$${averageCredits.toStringAsFixed(2)}'),
+          'Total Credits in System',
+          '\$${totalCredits.toStringAsFixed(2)}',
+        ),
         _buildStatRow(
-            'Highest User Credits', '\$${maxCredits.toStringAsFixed(2)}'),
+          'Average Credits per User',
+          '\$${averageCredits.toStringAsFixed(2)}',
+        ),
+        _buildStatRow(
+          'Highest User Credits',
+          '\$${maxCredits.toStringAsFixed(2)}',
+        ),
         _buildStatRow('Total Users', _users.length.toString()),
       ],
     );
@@ -1579,14 +1784,17 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget _buildStatRow(String label, String value) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: ResponsiveHelper.getResponsivePadding(context, 8)),
+        vertical: ResponsiveHelper.getResponsivePadding(context, 8),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label,
-              style: TextStyle(
-                fontSize: ResponsiveHelper.getResponsiveFontSize(context, 16),
-              )),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getResponsiveFontSize(context, 16),
+            ),
+          ),
           Text(
             value,
             style: TextStyle(
@@ -1615,29 +1823,41 @@ class _AdminDashboardState extends State<AdminDashboard> {
                         Icon(
                           Icons.local_shipping_outlined,
                           size: ResponsiveHelper.getResponsiveIconSize(
-                              context, 64),
+                            context,
+                            64,
+                          ),
                           color: Colors.grey.shade400,
                         ),
                         SizedBox(
-                            height: ResponsiveHelper.getResponsivePadding(
-                                context, 16)),
+                          height: ResponsiveHelper.getResponsivePadding(
+                            context,
+                            16,
+                          ),
+                        ),
                         Text(
                           'No coffee redemptions yet',
                           style: TextStyle(
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                context, 18),
+                              context,
+                              18,
+                            ),
                             color: Colors.grey.shade500,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                         SizedBox(
-                            height: ResponsiveHelper.getResponsivePadding(
-                                context, 8)),
+                          height: ResponsiveHelper.getResponsivePadding(
+                            context,
+                            8,
+                          ),
+                        ),
                         Text(
                           'Coffee bag redemptions will appear here',
                           style: TextStyle(
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
-                                context, 14),
+                              context,
+                              14,
+                            ),
                             color: Colors.grey.shade400,
                           ),
                         ),
@@ -1670,62 +1890,90 @@ class _AdminDashboardState extends State<AdminDashboard> {
           // Header row
           Container(
             padding: EdgeInsets.symmetric(
-                horizontal: ResponsiveHelper.getResponsivePadding(context, 16),
-                vertical: ResponsiveHelper.getResponsivePadding(context, 12)),
+              horizontal: ResponsiveHelper.getResponsivePadding(context, 16),
+              vertical: ResponsiveHelper.getResponsivePadding(context, 12),
+            ),
             decoration: BoxDecoration(
               color: Colors.grey.shade50,
               borderRadius: BorderRadius.circular(
-                  ResponsiveHelper.getResponsiveRadius(context, 8)),
+                ResponsiveHelper.getResponsiveRadius(context, 8),
+              ),
             ),
             child: Row(
               children: [
                 Expanded(
-                    flex: 3,
-                    child: Text('User',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 12),
-                        ))),
+                  flex: 3,
+                  child: Text(
+                    'User',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        12,
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
-                    flex: 1,
-                    child: Text('Credits',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 12),
-                        ))),
+                  flex: 1,
+                  child: Text(
+                    'Credits',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        12,
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
-                    flex: 1,
-                    child: Text('Status',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 12),
-                        ))),
+                  flex: 1,
+                  child: Text(
+                    'Status',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        12,
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
-                    flex: 2,
-                    child: Text('Date',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 12),
-                        ))),
+                  flex: 2,
+                  child: Text(
+                    'Date',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        12,
+                      ),
+                    ),
+                  ),
+                ),
                 Expanded(
-                    flex: 1,
-                    child: Text('Actions',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: ResponsiveHelper.getResponsiveFontSize(
-                              context, 12),
-                        ))),
+                  flex: 1,
+                  child: Text(
+                    'Actions',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        12,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           SizedBox(height: ResponsiveHelper.getResponsivePadding(context, 8)),
           // Redemption rows
-          ..._redemptions
-              .map((redemption) => _buildDesktopRedemptionRow(redemption)),
+          ..._redemptions.map(
+            (redemption) => _buildDesktopRedemptionRow(redemption),
+          ),
         ],
       ),
     );
@@ -1737,10 +1985,12 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
     return Card(
       margin: EdgeInsets.only(
-          bottom: ResponsiveHelper.getResponsivePadding(context, 12)),
+        bottom: ResponsiveHelper.getResponsivePadding(context, 12),
+      ),
       child: Padding(
-        padding:
-            EdgeInsets.all(ResponsiveHelper.getResponsivePadding(context, 16)),
+        padding: EdgeInsets.all(
+          ResponsiveHelper.getResponsivePadding(context, 16),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -1752,28 +2002,35 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     redemption['user_id'] ?? 'Unknown User',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize:
-                          ResponsiveHelper.getResponsiveFontSize(context, 16),
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        16,
+                      ),
                     ),
                   ),
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal:
-                          ResponsiveHelper.getResponsivePadding(context, 8),
-                      vertical:
-                          ResponsiveHelper.getResponsivePadding(context, 4)),
+                    horizontal: ResponsiveHelper.getResponsivePadding(
+                      context,
+                      8,
+                    ),
+                    vertical: ResponsiveHelper.getResponsivePadding(context, 4),
+                  ),
                   decoration: BoxDecoration(
                     color: statusColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(
-                        ResponsiveHelper.getResponsiveRadius(context, 12)),
+                      ResponsiveHelper.getResponsiveRadius(context, 12),
+                    ),
                   ),
                   child: Text(
                     status.toUpperCase(),
                     style: TextStyle(
                       color: statusColor,
-                      fontSize:
-                          ResponsiveHelper.getResponsiveFontSize(context, 12),
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(
+                        context,
+                        12,
+                      ),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -1791,7 +2048,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
             ),
             if (redemption['shipping_address'] != null) ...[
               SizedBox(
-                  height: ResponsiveHelper.getResponsivePadding(context, 8)),
+                height: ResponsiveHelper.getResponsivePadding(context, 8),
+              ),
               Text(
                 'Address: ${redemption['shipping_address']}',
                 style: TextStyle(
@@ -1801,7 +2059,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
             ],
             SizedBox(
-                height: ResponsiveHelper.getResponsivePadding(context, 12)),
+              height: ResponsiveHelper.getResponsivePadding(context, 12),
+            ),
             Row(
               children: [
                 Expanded(
@@ -1815,7 +2074,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                 ),
                 SizedBox(
-                    width: ResponsiveHelper.getResponsivePadding(context, 8)),
+                  width: ResponsiveHelper.getResponsivePadding(context, 8),
+                ),
                 IconButton(
                   onPressed: () => _showRedemptionDetails(redemption),
                   icon: Icon(Icons.info_outline),
@@ -1835,14 +2095,17 @@ class _AdminDashboardState extends State<AdminDashboard> {
 
     return Container(
       margin: EdgeInsets.only(
-          bottom: ResponsiveHelper.getResponsivePadding(context, 8)),
+        bottom: ResponsiveHelper.getResponsivePadding(context, 8),
+      ),
       padding: EdgeInsets.symmetric(
-          horizontal: ResponsiveHelper.getResponsivePadding(context, 16),
-          vertical: ResponsiveHelper.getResponsivePadding(context, 12)),
+        horizontal: ResponsiveHelper.getResponsivePadding(context, 16),
+        vertical: ResponsiveHelper.getResponsivePadding(context, 12),
+      ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(
-            ResponsiveHelper.getResponsiveRadius(context, 8)),
+          ResponsiveHelper.getResponsiveRadius(context, 8),
+        ),
         border: Border.all(color: Colors.grey.shade200),
       ),
       child: Row(
@@ -1871,12 +2134,14 @@ class _AdminDashboardState extends State<AdminDashboard> {
             flex: 1,
             child: Container(
               padding: EdgeInsets.symmetric(
-                  horizontal: ResponsiveHelper.getResponsivePadding(context, 6),
-                  vertical: ResponsiveHelper.getResponsivePadding(context, 4)),
+                horizontal: ResponsiveHelper.getResponsivePadding(context, 6),
+                vertical: ResponsiveHelper.getResponsivePadding(context, 4),
+              ),
               decoration: BoxDecoration(
                 color: statusColor.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(
-                    ResponsiveHelper.getResponsiveRadius(context, 8)),
+                  ResponsiveHelper.getResponsiveRadius(context, 8),
+                ),
               ),
               child: Text(
                 status.toUpperCase(),
@@ -1912,12 +2177,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                   tooltip: 'Update Status',
                   padding: EdgeInsets.all(
-                      ResponsiveHelper.getResponsivePadding(context, 4)),
+                    ResponsiveHelper.getResponsivePadding(context, 4),
+                  ),
                   constraints: BoxConstraints(
-                      minWidth:
-                          ResponsiveHelper.getResponsivePadding(context, 32),
-                      minHeight:
-                          ResponsiveHelper.getResponsivePadding(context, 32)),
+                    minWidth: ResponsiveHelper.getResponsivePadding(
+                      context,
+                      32,
+                    ),
+                    minHeight: ResponsiveHelper.getResponsivePadding(
+                      context,
+                      32,
+                    ),
+                  ),
                 ),
                 IconButton(
                   onPressed: () => _showRedemptionDetails(redemption),
@@ -1927,12 +2198,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   ),
                   tooltip: 'View Details',
                   padding: EdgeInsets.all(
-                      ResponsiveHelper.getResponsivePadding(context, 4)),
+                    ResponsiveHelper.getResponsivePadding(context, 4),
+                  ),
                   constraints: BoxConstraints(
-                      minWidth:
-                          ResponsiveHelper.getResponsivePadding(context, 32),
-                      minHeight:
-                          ResponsiveHelper.getResponsivePadding(context, 32)),
+                    minWidth: ResponsiveHelper.getResponsivePadding(
+                      context,
+                      32,
+                    ),
+                    minHeight: ResponsiveHelper.getResponsivePadding(
+                      context,
+                      32,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -1965,8 +2242,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
     String? notes = redemption['notes'];
 
     final statusController = TextEditingController(text: currentStatus);
-    final trackingController =
-        TextEditingController(text: trackingNumber ?? '');
+    final trackingController = TextEditingController(
+      text: trackingNumber ?? '',
+    );
     final notesController = TextEditingController(text: notes ?? '');
 
     showDialog(
@@ -1989,8 +2267,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   labelText: 'Status',
                   border: const OutlineInputBorder(),
                   labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 12),
+                        fontSize: ResponsiveHelper.getResponsiveFontSize(
+                          context,
+                          12,
+                        ),
                       ),
                 ),
                 items: [
@@ -1998,22 +2278,24 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   'confirmed',
                   'shipped',
                   'delivered',
-                  'cancelled'
+                  'cancelled',
                 ]
-                    .map((status) => DropdownMenuItem(
-                          value: status,
-                          child: Text(
-                            status.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall
-                                ?.copyWith(
-                                  fontSize:
-                                      ResponsiveHelper.getResponsiveFontSize(
-                                          context, 12),
-                                ),
-                          ),
-                        ))
+                    .map(
+                      (status) => DropdownMenuItem(
+                        value: status,
+                        child: Text(
+                          status.toUpperCase(),
+                          style:
+                              Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    fontSize:
+                                        ResponsiveHelper.getResponsiveFontSize(
+                                      context,
+                                      12,
+                                    ),
+                                  ),
+                        ),
+                      ),
+                    )
                     .toList(),
                 onChanged: (value) {
                   if (value != null) {
@@ -2022,15 +2304,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                 },
               ),
               SizedBox(
-                  height: ResponsiveHelper.getResponsivePadding(context, 16)),
+                height: ResponsiveHelper.getResponsivePadding(context, 16),
+              ),
               TextField(
                 controller: trackingController,
                 decoration: InputDecoration(
                   labelText: 'Tracking Number (Optional)',
                   border: const OutlineInputBorder(),
                   labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 12),
+                        fontSize: ResponsiveHelper.getResponsiveFontSize(
+                          context,
+                          12,
+                        ),
                       ),
                 ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -2039,15 +2324,18 @@ class _AdminDashboardState extends State<AdminDashboard> {
                     ),
               ),
               SizedBox(
-                  height: ResponsiveHelper.getResponsivePadding(context, 16)),
+                height: ResponsiveHelper.getResponsivePadding(context, 16),
+              ),
               TextField(
                 controller: notesController,
                 decoration: InputDecoration(
                   labelText: 'Notes (Optional)',
                   border: const OutlineInputBorder(),
                   labelStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 12),
+                        fontSize: ResponsiveHelper.getResponsiveFontSize(
+                          context,
+                          12,
+                        ),
                       ),
                 ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
@@ -2134,17 +2422,27 @@ class _AdminDashboardState extends State<AdminDashboard> {
             children: [
               _buildDetailRow('User', redemption['user_id'] ?? 'Unknown'),
               _buildDetailRow(
-                  'Credits Spent', '${redemption['credits_spent']}'),
+                'Credits Spent',
+                '${redemption['credits_spent']}',
+              ),
               _buildDetailRow(
-                  'Status', (redemption['status'] ?? 'pending').toUpperCase()),
+                'Status',
+                (redemption['status'] ?? 'pending').toUpperCase(),
+              ),
               _buildDetailRow(
-                  'Date', _formatDate(redemption['redemption_date'])),
+                'Date',
+                _formatDate(redemption['redemption_date']),
+              ),
               if (redemption['shipping_address'] != null)
                 _buildDetailRow(
-                    'Shipping Address', redemption['shipping_address']),
+                  'Shipping Address',
+                  redemption['shipping_address'],
+                ),
               if (redemption['tracking_number'] != null)
                 _buildDetailRow(
-                    'Tracking Number', redemption['tracking_number']),
+                  'Tracking Number',
+                  redemption['tracking_number'],
+                ),
               if (redemption['notes'] != null)
                 _buildDetailRow('Notes', redemption['notes']),
             ],
@@ -2169,7 +2467,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
   Widget _buildDetailRow(String label, String value) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: ResponsiveHelper.getResponsivePadding(context, 4)),
+        vertical: ResponsiveHelper.getResponsivePadding(context, 4),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -2212,9 +2511,7 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildConfigSection(),
-        ],
+        children: [_buildConfigSection()],
       ),
     );
   }
@@ -2225,9 +2522,10 @@ class _AdminDashboardState extends State<AdminDashboard> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(
-              child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.brown.shade600),
-          ));
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.brown.shade600),
+            ),
+          );
         }
 
         if (snapshot.hasError) {
@@ -2242,114 +2540,123 @@ class _AdminDashboardState extends State<AdminDashboard> {
         final config = snapshot.data ?? {};
         return Column(
           children: [
-            _buildConfigCard(
-              'Credit Earning Settings',
-              [
-                _buildConfigField(
-                  'Ads Credit Earning Percentage',
-                  'Percentage of ad revenue converted to user credits',
-                  config['ads_credit_earning_percentage']?.toString() ?? '0.1',
-                  (value) => _updateConfig('ads_credit_earning_percentage',
-                      double.tryParse(value) ?? 0.1),
-                  configKey: 'ads_credit_earning_percentage',
+            _buildConfigCard('Credit Earning Settings', [
+              _buildConfigField(
+                'Ads Credit Earning Percentage',
+                'Percentage of ad revenue converted to user credits',
+                config['ads_credit_earning_percentage']?.toString() ?? '0.1',
+                (value) => _updateConfig(
+                  'ads_credit_earning_percentage',
+                  double.tryParse(value) ?? 0.1,
                 ),
-                _buildConfigField(
-                  'Survey Credit Earning Percentage',
-                  'Percentage of survey rewards converted to user credits',
-                  config['survey_credit_earning_percentage']?.toString() ??
-                      '0.1',
-                  (value) => _updateConfig('survey_credit_earning_percentage',
-                      double.tryParse(value) ?? 0.1),
-                  configKey: 'survey_credit_earning_percentage',
+                configKey: 'ads_credit_earning_percentage',
+              ),
+              _buildConfigField(
+                'Survey Credit Earning Percentage',
+                'Percentage of survey rewards converted to user credits',
+                config['survey_credit_earning_percentage']?.toString() ?? '0.1',
+                (value) => _updateConfig(
+                  'survey_credit_earning_percentage',
+                  double.tryParse(value) ?? 0.1,
                 ),
-                _buildConfigField(
-                  'Ad Earning Multiplier',
-                  'Multiplier for ad-based earnings',
-                  config['ad_earning_multiplier']?.toString() ?? '1.0',
-                  (value) => _updateConfig(
-                      'ad_earning_multiplier', double.tryParse(value) ?? 1.0),
-                  configKey: 'ad_earning_multiplier',
+                configKey: 'survey_credit_earning_percentage',
+              ),
+              _buildConfigField(
+                'Ad Earning Multiplier',
+                'Multiplier for ad-based earnings',
+                config['ad_earning_multiplier']?.toString() ?? '1.0',
+                (value) => _updateConfig(
+                  'ad_earning_multiplier',
+                  double.tryParse(value) ?? 1.0,
                 ),
-                _buildConfigField(
-                  'Survey Earning Multiplier',
-                  'Multiplier for survey-based earnings',
-                  config['survey_earning_multiplier']?.toString() ?? '1.0',
-                  (value) => _updateConfig('survey_earning_multiplier',
-                      double.tryParse(value) ?? 1.0),
-                  configKey: 'survey_earning_multiplier',
+                configKey: 'ad_earning_multiplier',
+              ),
+              _buildConfigField(
+                'Survey Earning Multiplier',
+                'Multiplier for survey-based earnings',
+                config['survey_earning_multiplier']?.toString() ?? '1.0',
+                (value) => _updateConfig(
+                  'survey_earning_multiplier',
+                  double.tryParse(value) ?? 1.0,
                 ),
-              ],
-            ),
+                configKey: 'survey_earning_multiplier',
+              ),
+            ]),
             SizedBox(
-                height: ResponsiveHelper.getResponsivePadding(context, 20)),
-            _buildConfigCard(
-              'Bonus Settings',
-              [
-                _buildConfigField(
-                  'Daily Check-in Bonus',
-                  'Credits awarded for daily app visits',
-                  config['daily_checkin_bonus']?.toString() ?? '1.0',
-                  (value) => _updateConfig(
-                      'daily_checkin_bonus', double.tryParse(value) ?? 1.0),
-                  configKey: 'daily_checkin_bonus',
-                ),
-                _buildConfigField(
-                  'Referral Bonus',
-                  'Credits awarded for successful referrals',
-                  config['referral_bonus']?.toString() ?? '5.0',
-                  (value) => _updateConfig(
-                      'referral_bonus', double.tryParse(value) ?? 5.0),
-                  configKey: 'referral_bonus',
-                ),
-              ],
+              height: ResponsiveHelper.getResponsivePadding(context, 20),
             ),
+            _buildConfigCard('Bonus Settings', [
+              _buildConfigField(
+                'Daily Check-in Bonus',
+                'Credits awarded for daily app visits',
+                config['daily_checkin_bonus']?.toString() ?? '1.0',
+                (value) => _updateConfig(
+                  'daily_checkin_bonus',
+                  double.tryParse(value) ?? 1.0,
+                ),
+                configKey: 'daily_checkin_bonus',
+              ),
+              _buildConfigField(
+                'Referral Bonus',
+                'Credits awarded for successful referrals',
+                config['referral_bonus']?.toString() ?? '5.0',
+                (value) => _updateConfig(
+                  'referral_bonus',
+                  double.tryParse(value) ?? 5.0,
+                ),
+                configKey: 'referral_bonus',
+              ),
+            ]),
             SizedBox(
-                height: ResponsiveHelper.getResponsivePadding(context, 20)),
-            _buildConfigCard(
-              'Redemption Settings',
-              [
-                _buildConfigField(
-                  'Minimum Redemption Amount',
-                  'Minimum credits required for coffee redemption',
-                  config['minimum_redemption_amount']?.toString() ?? '15.0',
-                  (value) => _updateConfig('minimum_redemption_amount',
-                      double.tryParse(value) ?? 15.0),
-                  configKey: 'minimum_redemption_amount',
-                ),
-                _buildConfigField(
-                  'Max Daily Earning Limit',
-                  'Maximum credits users can earn per day',
-                  config['max_daily_earning_limit']?.toString() ?? '50.0',
-                  (value) => _updateConfig('max_daily_earning_limit',
-                      double.tryParse(value) ?? 50.0),
-                  configKey: 'max_daily_earning_limit',
-                ),
-              ],
+              height: ResponsiveHelper.getResponsivePadding(context, 20),
             ),
+            _buildConfigCard('Redemption Settings', [
+              _buildConfigField(
+                'Minimum Redemption Amount',
+                'Minimum credits required for coffee redemption',
+                config['minimum_redemption_amount']?.toString() ?? '15.0',
+                (value) => _updateConfig(
+                  'minimum_redemption_amount',
+                  double.tryParse(value) ?? 15.0,
+                ),
+                configKey: 'minimum_redemption_amount',
+              ),
+              _buildConfigField(
+                'Max Daily Earning Limit',
+                'Maximum credits users can earn per day',
+                config['max_daily_earning_limit']?.toString() ?? '50.0',
+                (value) => _updateConfig(
+                  'max_daily_earning_limit',
+                  double.tryParse(value) ?? 50.0,
+                ),
+                configKey: 'max_daily_earning_limit',
+              ),
+            ]),
             SizedBox(
-                height: ResponsiveHelper.getResponsivePadding(context, 20)),
-            _buildConfigCard(
-              'App Settings',
-              [
-                _buildConfigField(
-                  'App Version',
-                  'Current app version',
-                  config['app_version']?.toString() ?? '1.0.0',
-                  (value) => _updateConfig('app_version', value),
-                  configKey: 'app_version',
-                ),
-                _buildConfigField(
-                  'Maintenance Mode',
-                  'Enable/disable app maintenance mode',
-                  config['maintenance_mode']?.toString() ?? 'false',
-                  (value) => _updateConfig(
-                      'maintenance_mode', value.toLowerCase() == 'true'),
-                  configKey: 'maintenance_mode',
-                ),
-              ],
+              height: ResponsiveHelper.getResponsivePadding(context, 20),
             ),
+            _buildConfigCard('App Settings', [
+              _buildConfigField(
+                'App Version',
+                'Current app version',
+                config['app_version']?.toString() ?? '1.0.0',
+                (value) => _updateConfig('app_version', value),
+                configKey: 'app_version',
+              ),
+              _buildConfigField(
+                'Maintenance Mode',
+                'Enable/disable app maintenance mode',
+                config['maintenance_mode']?.toString() ?? 'false',
+                (value) => _updateConfig(
+                  'maintenance_mode',
+                  value.toLowerCase() == 'true',
+                ),
+                configKey: 'maintenance_mode',
+              ),
+            ]),
             SizedBox(
-                height: ResponsiveHelper.getResponsivePadding(context, 20)),
+              height: ResponsiveHelper.getResponsivePadding(context, 20),
+            ),
           ],
         );
       },
@@ -2360,8 +2667,9 @@ class _AdminDashboardState extends State<AdminDashboard> {
     return Card(
       elevation: 2,
       child: Padding(
-        padding:
-            EdgeInsets.all(ResponsiveHelper.getResponsivePadding(context, 20)),
+        padding: EdgeInsets.all(
+          ResponsiveHelper.getResponsivePadding(context, 20),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -2374,7 +2682,8 @@ class _AdminDashboardState extends State<AdminDashboard> {
               ),
             ),
             SizedBox(
-                height: ResponsiveHelper.getResponsivePadding(context, 16)),
+              height: ResponsiveHelper.getResponsivePadding(context, 16),
+            ),
             ...children,
           ],
         ),
@@ -2382,16 +2691,21 @@ class _AdminDashboardState extends State<AdminDashboard> {
     );
   }
 
-  Widget _buildConfigField(String label, String description,
-      String currentValue, Function(String) onChanged,
-      {String? configKey}) {
+  Widget _buildConfigField(
+    String label,
+    String description,
+    String currentValue,
+    Function(String) onChanged, {
+    String? configKey,
+  }) {
     final controller = TextEditingController(text: currentValue);
     final isLoading =
         configKey != null ? (_configLoadingStates[configKey] ?? false) : false;
 
     return Padding(
       padding: EdgeInsets.only(
-          bottom: ResponsiveHelper.getResponsivePadding(context, 16)),
+        bottom: ResponsiveHelper.getResponsivePadding(context, 16),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -2421,27 +2735,38 @@ class _AdminDashboardState extends State<AdminDashboard> {
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     contentPadding: EdgeInsets.symmetric(
-                        horizontal:
-                            ResponsiveHelper.getResponsivePadding(context, 12),
-                        vertical:
-                            ResponsiveHelper.getResponsivePadding(context, 8)),
+                      horizontal: ResponsiveHelper.getResponsivePadding(
+                        context,
+                        12,
+                      ),
+                      vertical: ResponsiveHelper.getResponsivePadding(
+                        context,
+                        8,
+                      ),
+                    ),
                   ),
                 ),
               ),
               SizedBox(
-                  width: ResponsiveHelper.getResponsivePadding(context, 12)),
+                width: ResponsiveHelper.getResponsivePadding(context, 12),
+              ),
               ElevatedButton(
                 onPressed: isLoading ? null : () => onChanged(controller.text),
                 child: isLoading
                     ? SizedBox(
-                        width:
-                            ResponsiveHelper.getResponsivePadding(context, 20),
-                        height:
-                            ResponsiveHelper.getResponsivePadding(context, 20),
+                        width: ResponsiveHelper.getResponsivePadding(
+                          context,
+                          20,
+                        ),
+                        height: ResponsiveHelper.getResponsivePadding(
+                          context,
+                          20,
+                        ),
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
                         ),
                       )
                     : Text('Update'),

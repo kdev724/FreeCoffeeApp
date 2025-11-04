@@ -23,17 +23,23 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
   String _statusMessage = 'Loading video ad...';
   RewardedInterstitialAd? _rewardedInterstitialAd;
   int _currentAdUnitIndex = 0;
+  int _retryCount = 0;
+  static const int _maxRetries = 3;
 
-  // Real AdMob ad unit IDs - using your actual ad unit ID from AdMob console
+  // AdMob ad unit IDs - using test IDs for development and real IDs for production
   final List<String> _adUnitIds = Platform.isAndroid
       ? [
-          'ca-app-pub-4671717342961261/1751761759',
-          'ca-app-pub-4671717342961261/1471096083'
+          // Test ad unit IDs for development (always return ads)
+          'ca-app-pub-4671717342961261/1751761759', // Test rewarded interstitial
+          // Real ad unit IDs for production
+          'ca-app-pub-3940256099942544/5354046379',
           // Add more ad units here when you create them in AdMob
         ]
       : [
-          'ca-app-pub-4671717342961261/1751761759',
-          'ca-app-pub-4671717342961261/1471096083'
+          // Test ad unit IDs for development (always return ads)
+          'ca-app-pub-4671717342961261/1751761759', // Test rewarded interstitial
+          // Real ad unit IDs for production
+          'ca-app-pub-3940256099942544/5354046379',
           // Add more ad units here when you create them in AdMob
         ];
 
@@ -47,40 +53,17 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
     setState(() {
       _isLoading = true;
       _isAdReady = false;
-      _statusMessage = 'Loading video ad...';
+      _statusMessage = _retryCount > 0
+          ? 'Retrying to load ad... (${_retryCount + 1}/$_maxRetries)'
+          : 'Loading video ad...';
     });
 
     // Rotate between ad units for more variety
     final currentAdUnitId = _adUnitIds[_currentAdUnitIndex];
-    _currentAdUnitIndex = (_currentAdUnitIndex + 1) % _adUnitIds.length;
 
     RewardedInterstitialAd.load(
       adUnitId: currentAdUnitId,
-      request: AdRequest(
-        // Coffee-related targeting to get coffee ads
-        keywords: [
-          'coffee',
-          'beverage',
-          'drink',
-          'cafe',
-          'espresso',
-          'latte',
-          'cappuccino',
-          'food',
-          'restaurant',
-          'dining',
-          'gourmet',
-          'premium',
-          'organic',
-          'fair trade'
-        ],
-        contentUrl: 'https://coffee-rewards-app.com',
-        // Add more targeting for coffee-related ads
-        extras: {
-          'category': 'food_and_beverage',
-          'subcategory': 'coffee',
-        },
-      ),
+      request: AdRequest(),
       rewardedInterstitialAdLoadCallback: RewardedInterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           print('Ad loaded in dialog!');
@@ -93,11 +76,15 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
         },
         onAdFailedToLoad: (LoadAdError error) {
           print('Ad failed to load in dialog: $error');
-          setState(() {
-            _isLoading = false;
-            _isAdReady = false;
-            _statusMessage = 'Failed to load ad. Please try again.';
-          });
+          if (_currentAdUnitIndex == 1) {
+            setState(() {
+              _isLoading = false;
+              _isAdReady = false;
+            });
+          } else {
+            _currentAdUnitIndex = 1;
+            _loadAd();
+          }
         },
       ),
     );
@@ -120,7 +107,9 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
       _rewardedInterstitialAd!.show(
         onUserEarnedReward: (AdWithoutView view, RewardItem rewardItem) {
           print('Reward earned: ${rewardItem.amount}');
-          widget.onCreditsEarned(rewardItem.amount.toDouble());
+          widget.onCreditsEarned(rewardItem.amount.toDouble() > 5
+              ? 1
+              : rewardItem.amount.toDouble());
 
           if (mounted) {
             setState(() {
@@ -205,14 +194,7 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                   topLeft: Radius.circular(16),
                   topRight: Radius.circular(16),
                 ),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Colors.brown.shade600,
-                    Colors.brown.shade800,
-                  ],
-                ),
+                color: Color(0xFFFF5516).withOpacity(0.9),
               ),
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -225,11 +207,13 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                     ),
                     child: Icon(
                       Icons.play_circle_filled,
-                      size: 20,
+                      size: ResponsiveHelper.getResponsiveIconSize(context, 20),
                       color: Colors.white,
                     ),
                   ),
-                  const SizedBox(width: 12),
+                  SizedBox(
+                      width:
+                          ResponsiveHelper.getResponsivePadding(context, 12)),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,7 +232,7 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                           style: TextStyle(
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
                                 context, 12),
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -310,7 +294,9 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                             size: 16,
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        SizedBox(
+                            width: ResponsiveHelper.getResponsivePadding(
+                                context, 10)),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -346,35 +332,43 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(
+                      height:
+                          ResponsiveHelper.getResponsivePadding(context, 16)),
 
                   // Reward Info Card
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.all(12),
+                    padding: EdgeInsets.all(
+                        ResponsiveHelper.getResponsivePadding(context, 12)),
                     decoration: BoxDecoration(
-                      color: Colors.brown.shade50,
+                      color: Color(0xFFFF5516).withOpacity(0.05),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: Colors.brown.shade200,
+                        color: Color(0xFFFF5516).withOpacity(0.2),
                         width: 1,
                       ),
                     ),
                     child: Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(6),
+                          padding: EdgeInsets.all(
+                              ResponsiveHelper.getResponsivePadding(
+                                  context, 6)),
                           decoration: BoxDecoration(
-                            color: Colors.brown.shade100,
+                            color: Color(0xFFFF5516).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: Icon(
                             Icons.monetization_on,
-                            color: Colors.brown.shade700,
-                            size: 16,
+                            color: Color(0xFFFF5516).withOpacity(0.9),
+                            size: ResponsiveHelper.getResponsiveIconSize(
+                                context, 16),
                           ),
                         ),
-                        const SizedBox(width: 10),
+                        SizedBox(
+                            width: ResponsiveHelper.getResponsivePadding(
+                                context, 10)),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,17 +380,19 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                                       ResponsiveHelper.getResponsiveFontSize(
                                           context, 14),
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.brown.shade700,
+                                  color: Color(0xFFFF5516).withOpacity(0.9),
                                 ),
                               ),
-                              const SizedBox(height: 2),
+                              SizedBox(
+                                  height: ResponsiveHelper.getResponsivePadding(
+                                      context, 2)),
                               Text(
-                                'Watch video ads to earn credits for your account',
+                                'Watch video ads to earn credits',
                                 style: TextStyle(
                                   fontSize:
                                       ResponsiveHelper.getResponsiveFontSize(
                                           context, 12),
-                                  color: Colors.brown.shade600,
+                                  color: Color(0xFFFF5516).withOpacity(0.9),
                                 ),
                               ),
                             ],
@@ -406,7 +402,9 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                     ),
                   ),
 
-                  const SizedBox(height: 16),
+                  SizedBox(
+                      height:
+                          ResponsiveHelper.getResponsivePadding(context, 16)),
 
                   // Action Buttons
                   Row(
@@ -418,7 +416,9 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                             widget.onDialogClosed?.call();
                           },
                           style: OutlinedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: EdgeInsets.symmetric(
+                                vertical: ResponsiveHelper.getResponsivePadding(
+                                    context, 12)),
                             side: BorderSide(color: Colors.grey.shade300),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -435,15 +435,19 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 8),
+                      SizedBox(
+                          width: ResponsiveHelper.getResponsivePadding(
+                              context, 8)),
                       Expanded(
                         flex: 2,
                         child: ElevatedButton(
                           onPressed: _isAdReady && !_isLoading ? _showAd : null,
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.brown.shade600,
+                            backgroundColor: Color(0xFFFF5516).withOpacity(0.9),
                             foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            padding: EdgeInsets.symmetric(
+                                vertical: ResponsiveHelper.getResponsivePadding(
+                                    context, 12)),
                             elevation: 2,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8),
@@ -451,8 +455,11 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                           ),
                           child: _isLoading
                               ? SizedBox(
-                                  height: 16,
-                                  width: 16,
+                                  height:
+                                      ResponsiveHelper.getResponsiveIconSize(
+                                          context, 16),
+                                  width: ResponsiveHelper.getResponsiveIconSize(
+                                      context, 16),
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
                                     valueColor: AlwaysStoppedAnimation<Color>(
@@ -465,9 +472,12 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
                                   children: [
                                     Icon(
                                       Icons.play_arrow,
-                                      size: 16,
+                                      size: ResponsiveHelper
+                                          .getResponsiveIconSize(context, 16),
                                     ),
-                                    const SizedBox(width: 6),
+                                    SizedBox(
+                                        width: ResponsiveHelper
+                                            .getResponsivePadding(context, 6)),
                                     Text(
                                       'Watch Video Ad',
                                       style: TextStyle(
@@ -485,9 +495,14 @@ class _AdWatchDialogState extends State<AdWatchDialog> {
 
                   // Retry button (only show when ad failed)
                   if (!_isAdReady && !_isLoading) ...[
-                    const SizedBox(height: 8),
+                    SizedBox(
+                        height:
+                            ResponsiveHelper.getResponsivePadding(context, 8)),
                     TextButton.icon(
-                      onPressed: _loadAd,
+                      onPressed: () {
+                        _retryCount = 0; // Reset retry count
+                        _loadAd();
+                      },
                       icon: Icon(
                         Icons.refresh,
                         size: 14,

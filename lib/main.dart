@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:app_links/app_links.dart';
@@ -20,9 +21,7 @@ void main() async {
     runApp(const FreeCoffeeApp());
   } catch (e) {
     // Run app with error handling
-    runApp(MaterialApp(
-      home: ErrorScreen(error: e.toString()),
-    ));
+    runApp(MaterialApp(home: ErrorScreen(error: e.toString())));
   }
 }
 
@@ -75,12 +74,15 @@ class FreeCoffeeAppState extends State<FreeCoffeeApp> {
   Future<void> _initDeepLinks() async {
     // Handle app links while the app is already started - it should be
     // handled inside the `initState` function
-    _appLinks.uriLinkStream.listen((uri) {
-      _handleIncomingLink(uri);
-    }, onError: (err) {
-      // Handle exception: AppLinksException, UriFormatException, etc.
-      print('Deep link error: $err');
-    });
+    _appLinks.uriLinkStream.listen(
+      (uri) {
+        _handleIncomingLink(uri);
+      },
+      onError: (err) {
+        // Handle exception: AppLinksException, UriFormatException, etc.
+        print('Deep link error: $err');
+      },
+    );
 
     // Note: For initial app launch deep links, we'll rely on the stream listener
     // The app_links package handles this automatically when the app is launched
@@ -97,7 +99,8 @@ class FreeCoffeeAppState extends State<FreeCoffeeApp> {
       final refreshToken = uri.queryParameters['refresh_token'];
 
       print(
-          'Deep link params - code: $code, type: $type, access_token: ${accessToken != null ? 'present' : 'null'}');
+        'Deep link params - code: $code, type: $type, access_token: ${accessToken != null ? 'present' : 'null'}',
+      );
 
       // Handle password reset
       if (type == 'recovery' && code != null && code.isNotEmpty) {
@@ -131,7 +134,10 @@ class FreeCoffeeAppState extends State<FreeCoffeeApp> {
   }
 
   void _handleOAuthCallback(
-      String? code, String? accessToken, String? refreshToken) async {
+    String? code,
+    String? accessToken,
+    String? refreshToken,
+  ) async {
     try {
       print('🔄 Processing OAuth callback...');
 
@@ -164,60 +170,226 @@ class FreeCoffeeAppState extends State<FreeCoffeeApp> {
       page = AuthWrapper(onRegisterTap: () => _goTo('register'));
     }
     return MaterialApp(
-      title: 'Coffee Credit App',
+      title: 'Free Coffee App',
       theme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.light,
-        primarySwatch: Colors.brown,
-        scaffoldBackgroundColor: Color(0xFFf8f7f6),
-        fontFamily: GoogleFonts.inter().fontFamily,
-        textTheme: GoogleFonts.interTextTheme(),
+        scaffoldBackgroundColor: Colors.white,
+        fontFamily: GoogleFonts.poppins().fontFamily,
+        textTheme: GoogleFonts.poppinsTextTheme(),
+        colorScheme: const ColorScheme(
+          brightness: Brightness.light,
+          primary: Colors.black,
+          onPrimary: Colors.white,
+          secondary: Color(0xFF111111),
+          onSecondary: Colors.white,
+          error: Color(0xFFB3261E),
+          onError: Colors.white,
+          background: Colors.white,
+          onBackground: Colors.black,
+          surface: Colors.white,
+          onSurface: Colors.black,
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           elevation: 0,
           shadowColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Color(0XFF364253)),
-          titleTextStyle: GoogleFonts.inter(
-            color: Colors.brown,
-            fontWeight: FontWeight.bold,
-            fontSize: ResponsiveHelper.getResponsiveFontSize(context, 24),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.black),
+          titleTextStyle: GoogleFonts.poppins(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+            fontSize: ResponsiveHelper.getResponsiveFontSize(context, 22),
           ),
         ),
-        cardColor: Color.fromARGB(255, 0, 0, 0),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.brown.shade700,
+            backgroundColor: Colors.black,
+            foregroundColor: Colors.white,
+            padding: ResponsiveHelper.getResponsiveEdgeInsets(context,
+                vertical: ResponsiveHelper.getResponsivePadding(context, 14),
+                horizontal: ResponsiveHelper.getResponsivePadding(context, 18)),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.getResponsiveRadius(context, 12)),
             ),
             elevation: 0,
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.black,
+            side: const BorderSide(color: Color(0xFFDDDDDD)),
+            padding: ResponsiveHelper.getResponsiveEdgeInsets(context,
+                vertical: ResponsiveHelper.getResponsivePadding(context, 12),
+                horizontal: ResponsiveHelper.getResponsivePadding(context, 16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.getResponsiveRadius(context, 12)),
+            ),
+          ),
+        ),
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            foregroundColor: Colors.black,
+            padding: ResponsiveHelper.getResponsiveEdgeInsets(context,
+                vertical: ResponsiveHelper.getResponsivePadding(context, 10),
+                horizontal: ResponsiveHelper.getResponsivePadding(context, 8)),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: const Color(0xFFF7F7F7),
+          contentPadding: ResponsiveHelper.getResponsiveEdgeInsets(context,
+              vertical: ResponsiveHelper.getResponsivePadding(context, 14),
+              horizontal: ResponsiveHelper.getResponsivePadding(context, 14)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            borderSide: const BorderSide(color: Color(0xFFE5E5E5)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            borderSide: const BorderSide(color: Color(0xFFE5E5E5)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            borderSide: const BorderSide(color: Colors.black, width: 1.2),
+          ),
+          labelStyle: const TextStyle(color: Color(0xFF666666)),
+          hintStyle: const TextStyle(color: Color(0xFF8C8C8C)),
+        ),
+        chipTheme: ChipThemeData(
+          backgroundColor: const Color(0xFFF0F0F0),
+          labelStyle: GoogleFonts.poppins(color: Colors.black),
+          selectedColor: Colors.black,
+          secondarySelectedColor: Colors.black,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            side: const BorderSide(color: Color(0xFFE5E5E5)),
+          ),
+          padding: ResponsiveHelper.getResponsiveEdgeInsets(context,
+              horizontal: ResponsiveHelper.getResponsivePadding(context, 10),
+              vertical: ResponsiveHelper.getResponsivePadding(context, 6)),
+        ),
+        // Note: Older Flutter channels might not support CardTheme/DialogTheme
+        snackBarTheme: SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.black,
+          contentTextStyle: TextStyle(color: Colors.white),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 10))),
           ),
         ),
       ),
       darkTheme: ThemeData(
+        useMaterial3: true,
         brightness: Brightness.dark,
-        primarySwatch: Colors.brown,
-        scaffoldBackgroundColor: const Color(0xFF23211C),
-        fontFamily: GoogleFonts.inter().fontFamily,
-        textTheme: GoogleFonts.interTextTheme(),
+        scaffoldBackgroundColor: const Color(0xFF0F0F0F),
+        fontFamily: GoogleFonts.poppins().fontFamily,
+        textTheme: GoogleFonts.poppinsTextTheme(ThemeData.dark().textTheme),
+        colorScheme: const ColorScheme(
+          brightness: Brightness.dark,
+          primary: Colors.white,
+          onPrimary: Colors.black,
+          secondary: Color(0xFFE5E5E5),
+          onSecondary: Colors.black,
+          error: Color(0xFFF2B8B5),
+          onError: Color(0xFF601410),
+          background: Color(0xFF0F0F0F),
+          onBackground: Colors.white,
+          surface: Color(0xFF161616),
+          onSurface: Colors.white,
+        ),
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.transparent,
           elevation: 0,
           shadowColor: Colors.transparent,
-          iconTheme: IconThemeData(color: Color(0XFF364253)),
-          titleTextStyle: GoogleFonts.inter(
-            color: Colors.brown,
-            fontWeight: FontWeight.bold,
-            fontSize: ResponsiveHelper.getResponsiveFontSize(context, 24),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.white),
+          titleTextStyle: GoogleFonts.poppins(
+            color: Colors.white,
+            fontWeight: FontWeight.w600,
+            fontSize: ResponsiveHelper.getResponsiveFontSize(
+                context, ResponsiveHelper.getResponsiveFontSize(context, 22)),
           ),
         ),
-        cardColor: Colors.brown[900]?.withOpacity(0.2),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFC69C6D),
+            backgroundColor: Colors.white,
+            foregroundColor: Colors.black,
+            padding: ResponsiveHelper.getResponsiveEdgeInsets(context,
+                vertical: ResponsiveHelper.getResponsivePadding(context, 14),
+                horizontal: ResponsiveHelper.getResponsivePadding(context, 18)),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.getResponsiveRadius(context, 12)),
             ),
             elevation: 0,
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: Colors.white,
+            side: const BorderSide(color: Color(0x33FFFFFF)),
+            padding: ResponsiveHelper.getResponsiveEdgeInsets(context,
+                vertical: ResponsiveHelper.getResponsivePadding(context, 12),
+                horizontal: ResponsiveHelper.getResponsivePadding(context, 16)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(
+                  ResponsiveHelper.getResponsiveRadius(context, 12)),
+            ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: const Color(0xFF1E1E1E),
+          contentPadding:
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            borderSide: BorderSide(color: Colors.white.withOpacity(0.12)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            borderSide: BorderSide(color: Colors.white.withOpacity(0.12)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            borderSide: const BorderSide(color: Colors.white, width: 1.2),
+          ),
+          labelStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
+          hintStyle: TextStyle(color: Colors.white.withOpacity(0.6)),
+        ),
+        chipTheme: ChipThemeData(
+          backgroundColor: const Color(0xFF2A2A2A),
+          labelStyle: GoogleFonts.poppins(color: Colors.white),
+          selectedColor: Colors.white,
+          secondarySelectedColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 12)),
+            side: BorderSide(color: Colors.white.withOpacity(0.12)),
+          ),
+          padding: EdgeInsets.symmetric(
+              horizontal: ResponsiveHelper.getResponsivePadding(context, 10),
+              vertical: ResponsiveHelper.getResponsivePadding(context, 6)),
+        ),
+        // Note: Older Flutter channels might not support CardTheme/DialogTheme
+        snackBarTheme: SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.white,
+          contentTextStyle: TextStyle(color: Colors.black),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(
+                ResponsiveHelper.getResponsiveRadius(context, 10))),
           ),
         ),
       ),
@@ -386,7 +558,7 @@ class _PasswordResetDialogState extends State<PasswordResetDialog> {
     return AlertDialog(
       title: Row(
         children: [
-          Icon(Icons.lock_reset, color: Colors.brown.shade600),
+          Icon(Icons.lock_reset, color: Theme.of(context).colorScheme.primary),
           SizedBox(width: 8),
           Text('Reset Password'),
         ],
@@ -453,8 +625,8 @@ class _PasswordResetDialogState extends State<PasswordResetDialog> {
         ElevatedButton(
           onPressed: _isLoading ? null : _updatePassword,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.brown.shade600,
-            foregroundColor: Colors.white,
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.onPrimary,
           ),
           child: _isLoading
               ? SizedBox(

@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../globals.dart' as globals;
+import 'app_config_service.dart';
 
 class CoffeeRedemptionService {
   static final SupabaseClient _supabase = Supabase.instance.client;
@@ -16,18 +17,21 @@ class CoffeeRedemptionService {
       final profile = globals.GlobalUser.userProfile;
       if (profile == null) throw Exception('No user profile found');
 
+      // Load current default coffee price from config
+      final double coffeePrice = await AppConfigService.getDefaultCoffeePrice();
+
       // Check if user has enough credits
-      final currentCredits = profile['credits'] ?? 0.0;
-      if (currentCredits < 15.0) {
+      final currentCredits = (profile['credits'] ?? 0.0).toDouble();
+      if (currentCredits < coffeePrice) {
         throw Exception(
-            'Insufficient credits. You need 15 credits to redeem a coffee bag.');
+            'Insufficient credits. You need ${coffeePrice.toStringAsFixed(0)} credits to redeem a coffee bag.');
       }
 
       // Create redemption record
       final redemption = {
         'user_id': user.email, // Save email instead of UUID
         'profile_id': user.id, // profile_id is the same as user_id in our case
-        'credits_spent': 15.00,
+        'credits_spent': coffeePrice,
         'shipping_address': shippingAddress,
         'notes': notes,
         'status': 'pending',
@@ -45,12 +49,12 @@ class CoffeeRedemptionService {
 
       // Update user's profile: deduct credits and increment coffee count
       await _supabase.from('profiles').update({
-        'credits': currentCredits - 15.0,
+        'credits': currentCredits - coffeePrice,
         'coffee_count': newCoffeeCount,
       }).eq('id', user.id);
 
       // Update local user credits and coffee count
-      globals.GlobalUser.updateCredits(currentCredits - 15.0);
+      globals.GlobalUser.updateCredits(currentCredits - coffeePrice);
       globals.GlobalUser.updateCoffeeCount(newCoffeeCount);
 
       return response;
@@ -265,12 +269,14 @@ class CoffeeRedemptionService {
       final profile = globals.GlobalUser.userProfile;
       if (profile != null) {
         final currentCredits = profile['credits'] ?? 0.0;
-        globals.GlobalUser.updateCredits(currentCredits + 15.0);
+        final double coffeePrice =
+            await AppConfigService.getDefaultCoffeePrice();
+        globals.GlobalUser.updateCredits(currentCredits + coffeePrice);
 
         // Update in database
         await _supabase
             .from('profiles')
-            .update({'credits': currentCredits + 15.0}).eq('id', user.id);
+            .update({'credits': currentCredits + coffeePrice}).eq('id', user.id);
       }
     } catch (error) {
       rethrow;

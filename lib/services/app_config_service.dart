@@ -66,7 +66,7 @@ class AppConfigService {
   /// Get survey credit earning percentage
   static Future<double> getSurveyCreditEarningPercentage() async {
     final percentage = await getConfigValue('survey_credit_earning_percentage');
-    return percentage?.toDouble() ?? 0.1; // Default to 10% if not set
+    return percentage?.toDouble() ?? 0.001; // Default to 10% if not set
   }
 
   static Future<bool> isTestMode() async {
@@ -108,6 +108,12 @@ class AppConfigService {
   static Future<double> getMinimumRedemptionAmount() async {
     final amount = await getConfigValue('minimum_redemption_amount');
     return amount?.toDouble() ?? 15.0; // Default to 15 credits if not set
+  }
+
+  /// Get default coffee price (cost to redeem one coffee)
+  static Future<double> getDefaultCoffeePrice() async {
+    final amount = await getConfigValue('default_coffee_price');
+    return amount?.toDouble() ?? 15.0;
   }
 
   /// Get maximum daily earning limit
@@ -161,6 +167,7 @@ class AppConfigService {
       'daily_checkin_bonus': 1.0,
       'referral_bonus': 5.0,
       'minimum_redemption_amount': 15.0,
+      'default_coffee_price': 15.0,
       'max_daily_earning_limit': 50.0,
       'maintenance_mode': false,
       'app_version': '1.0.0',

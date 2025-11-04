@@ -10,14 +10,17 @@ class AboutAppPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'About This App',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
-        backgroundColor: Color(0xFFC69C6D),
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
-        padding:
-            EdgeInsets.all(ResponsiveHelper.getResponsivePadding(context, 20)),
+        padding: EdgeInsets.only(
+            top: ResponsiveHelper.getResponsivePadding(context, 5),
+            bottom: ResponsiveHelper.getResponsivePadding(context, 16),
+            left: ResponsiveHelper.getResponsivePadding(context, 16),
+            right: ResponsiveHelper.getResponsivePadding(context, 16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -54,7 +57,7 @@ class AboutAppPage extends StatelessWidget {
                       height:
                           ResponsiveHelper.getResponsivePadding(context, 80),
                       decoration: BoxDecoration(
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                         borderRadius: BorderRadius.circular(
                             ResponsiveHelper.getResponsiveRadius(context, 20)),
                       ),
@@ -68,14 +71,11 @@ class AboutAppPage extends StatelessWidget {
                     SizedBox(
                         height:
                             ResponsiveHelper.getResponsivePadding(context, 16)),
-                    Text(
-                      'Free Coffee App',
-                      style: TextStyle(
-                        fontSize:
-                            ResponsiveHelper.getResponsiveFontSize(context, 24),
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFC69C6D),
-                      ),
+                    Image.asset(
+                      'assets/images/logo.png',
+                      height:
+                          ResponsiveHelper.getResponsivePadding(context, 20),
+                      fit: BoxFit.contain,
                     ),
                     SizedBox(
                         height:
@@ -143,7 +143,7 @@ class AboutAppPage extends StatelessWidget {
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 18),
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                       ),
                     ),
                     SizedBox(
@@ -219,7 +219,7 @@ class AboutAppPage extends StatelessWidget {
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 18),
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                       ),
                     ),
                     SizedBox(
@@ -301,7 +301,7 @@ class AboutAppPage extends StatelessWidget {
                             fontSize: ResponsiveHelper.getResponsiveFontSize(
                                 context, 18),
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFFC69C6D),
+                            color: Color(0xFFFF5516),
                           ),
                         )),
                     SizedBox(
@@ -309,7 +309,7 @@ class AboutAppPage extends StatelessWidget {
                             ResponsiveHelper.getResponsivePadding(context, 16)),
                     ListTile(
                       leading:
-                          Icon(Icons.email_outlined, color: Color(0xFFC69C6D)),
+                          Icon(Icons.email_outlined, color: Color(0xFFFF5516)),
                       title: Text(
                         'Email Support',
                         style: TextStyle(
@@ -328,7 +328,7 @@ class AboutAppPage extends StatelessWidget {
                     ),
                     ListTile(
                       leading:
-                          Icon(Icons.help_outline, color: Color(0xFFC69C6D)),
+                          Icon(Icons.help_outline, color: Color(0xFFFF5516)),
                       title: Text(
                         'Help Center',
                         style: TextStyle(
@@ -347,7 +347,7 @@ class AboutAppPage extends StatelessWidget {
                     ),
                     ListTile(
                       leading: Icon(Icons.privacy_tip_outlined,
-                          color: Color(0xFFC69C6D)),
+                          color: Color(0xFFFF5516)),
                       title: Text(
                         'Privacy Policy',
                         style: TextStyle(
@@ -406,7 +406,7 @@ class AboutAppPage extends StatelessWidget {
                         fontSize:
                             ResponsiveHelper.getResponsiveFontSize(context, 18),
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFFC69C6D),
+                        color: Color(0xFFFF5516),
                       ),
                     ),
                     SizedBox(
@@ -430,7 +430,7 @@ class AboutAppPage extends StatelessWidget {
                     _buildInfoRow(
                       context: context,
                       label: 'Last Updated',
-                      value: 'August 2025',
+                      value: 'October 2025',
                     ),
                     _buildInfoRow(
                       context: context,
@@ -483,7 +483,7 @@ class AboutAppPage extends StatelessWidget {
             ),
             child: Icon(
               icon,
-              color: Color(0xFFC69C6D),
+              color: Color(0xFFFF5516),
               size: ResponsiveHelper.getResponsiveFontSize(context, 24),
             ),
           ),
